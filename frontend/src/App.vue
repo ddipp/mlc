@@ -1,13 +1,10 @@
-<script setup>
-
-</script>
-
 <template>
-  <header />
-
-  <RouterView />
+  <ComponentMenubar />
+  <div class="container">
+    <RouterView />
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<script setup>
+import ComponentMenubar from './components/ComponentMenubar.vue';
+</script>
