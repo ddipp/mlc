@@ -1,2 +1,1 @@
-# mlc
-microwave link calculator
+# microwave link calculator
