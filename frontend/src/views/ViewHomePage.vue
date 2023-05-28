@@ -9,9 +9,3 @@
 <script setup>
 document.title = 'Profile radio planner';
 </script>
-
-<style scoped>
-p { 
-   text-indent: 30px;
-}
-</style>

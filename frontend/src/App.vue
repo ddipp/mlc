@@ -8,3 +8,6 @@
 <script setup>
 import ComponentMenubar from './components/ComponentMenubar.vue';
 </script>
+
+<style scoped>
+</style>

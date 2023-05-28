@@ -7,3 +7,9 @@
     margin-top: 35px;
     background-color: beige;
 }
+.row {
+}
+.column {
+  width: 50%;
+  float: left;
+}
