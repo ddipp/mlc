@@ -2,7 +2,7 @@ import './assets/main.css';
 
 import { createApp } from 'vue';
 
-// import { createPinia } from 'pinia';
+import { createPinia } from 'pinia';
 
 import Axios from 'axios';
 import App from './App.vue';
@@ -12,7 +12,7 @@ Axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? '/api/v0.1/' : 
 
 const app = createApp(App);
 
-// app.use(createPinia());
+app.use(createPinia());
 app.use(router);
 
 app.mount('#app');

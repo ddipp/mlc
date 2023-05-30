@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import ComponentMenubar from './components/ComponentMenubar.vue';
+import ComponentMenubar from '@/components/ComponentMenubar.vue';
 </script>
 
 <style scoped>
