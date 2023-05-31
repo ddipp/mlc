@@ -9,7 +9,7 @@ try:
 except ImportError:
     app.config.from_object('app.config')
 
-CORS(app, resources={r"/api/*": {"origins": ["http://localhost:4200"]}})
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5173"]}})
 
 
 from app.v01.views import v01  # noqa

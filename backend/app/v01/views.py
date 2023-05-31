@@ -9,6 +9,6 @@ def root():
     return jsonify(name="testname testfamily")
 
 
-@v01.route('distance/<int(signed=True):lat_1>')
-def distance(lat_1):
-    return jsonify(distance="{:.2f}".format(lat_1))
+@v01.route('distance/<int(signed=True):la_a>/<int(signed=True):lo_a>/<int(signed=True):la_b>/<int(signed=True):lo_b>')
+def distance(la_a, lo_a, la_b, lo_b):
+    return jsonify(distance="{:.2f}".format(la_a + 20))
