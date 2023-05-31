@@ -6,3 +6,4 @@ init_venv.dev.sh
 .venv/
 __pycache__
 requirements.dev.txt
+productionconfig.py

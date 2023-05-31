@@ -8,7 +8,10 @@ export const useDistanceStore = defineStore('distance', {
     la_b: 0,
     lo_b: 0,
     distance: '',
-    changed: true,
+    arc_distance: '',
+    az_a_b: '',
+    az_b_a: '',
+    changed: false,
   }),
   actions: {
     async calculate() {
@@ -20,6 +23,9 @@ export const useDistanceStore = defineStore('distance', {
       try {
         const response = await axios.get(`/distance/${la_a}/${lo_a}/${la_b}/${lo_b}`);
         this.distance = response.data.distance;
+        this.arc_distance = response.data.arc_distance;
+        this.az_a_b = response.data.az_a_b;
+        this.az_b_a = response.data.az_b_a;
         this.changed = true;
       }
       catch(arror) {

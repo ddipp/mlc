@@ -11,7 +11,7 @@
     <div class="row">
       <div class="column">Longitude</div>
       <div class="column">
-        <input v-model="distance.lo_a" placeholder="Longitude">
+        <input v-model="lo_a" placeholder="Longitude">
       </div>
     </div>
   </fieldset>
@@ -20,19 +20,28 @@
     <div class="row">
       <div class="column">Latitude</div>
       <div class="column">
-        <input v-model="distance.la_b" placeholder="Latitude">
+        <input v-model="la_b" placeholder="Latitude">
       </div>
     </div>
     <div class="row">
       <div class="column">Longitude</div>
       <div class="column">
-        <input v-model="distance.lo_b" placeholder="Longitude">
+        <input v-model="lo_b" placeholder="Longitude">
       </div>
     </div>
   </fieldset>
   <button @click="distance.calculate()">Calculate</button>
 
-  <h1 v-if="distance.changed">{{ distance.distance }}</h1>
+  <div v-if="distance.changed">
+    <fieldset>
+      <ul>
+        <li>Distance between two points in kilometers in a straight line {{ distance.distance }}</li>
+        <li>Distance between two points in kilometers on the surface of the planet {{ distance.arc_distance }}</li>
+        <li>Cource from Point A to Point B {{ distance.az_a_b }}°</li>
+        <li>Cource from Point B to Point A {{ distance.az_b_a }}°</li>
+      </ul>
+    </fieldset>
+  </div>
 </template>
 
 <script setup>
