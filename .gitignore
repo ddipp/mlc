@@ -7,3 +7,4 @@ init_venv.dev.sh
 __pycache__
 requirements.dev.txt
 productionconfig.py
+backend/data/

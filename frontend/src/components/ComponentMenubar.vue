@@ -9,6 +9,7 @@
       <div class="menu">
         <li><router-link to='/'>Home</router-link></li>
         <li><router-link to='/calculate'>Calculate</router-link></li>
+<!--         
         <li class="services">
           <a href="/">Services</a>
           <ul class="dropdown">
@@ -19,6 +20,7 @@
             <li><a href="/">Dropdown 4</a></li>
           </ul>
         </li>
+-->
       </div>
     </ul>
     <!-- LOGO -->
