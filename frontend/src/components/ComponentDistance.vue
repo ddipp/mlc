@@ -39,6 +39,8 @@
         <li>Distance between two points in kilometers on the surface of the planet {{ distance.arc_distance }}</li>
         <li>Cource from Point A to Point B {{ distance.az_a_b }}°</li>
         <li>Cource from Point B to Point A {{ distance.az_b_a }}°</li>
+        <li>Point A. Altitude {{ distance.p_a_elevation }} m</li>
+        <li>Point B. Altitude {{ distance.p_b_elevation }} m</li>
       </ul>
     </fieldset>
   </div>

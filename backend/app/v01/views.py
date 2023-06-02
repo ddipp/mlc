@@ -19,4 +19,6 @@ def distance(la_a, lo_a, la_b, lo_b):
                    arc_distance="{:.3f}".format(arc_distance),
                    az_a_b="{:.1f}".format(az_a_b),
                    az_b_a="{:.1f}".format(az_b_a),
+                   p_a_elevation=p_a.elevation,
+                   p_b_elevation=p_b.elevation,
                    )

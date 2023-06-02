@@ -11,6 +11,8 @@ export const useDistanceStore = defineStore('distance', {
     arc_distance: '',
     az_a_b: '',
     az_b_a: '',
+    p_a_elevation: '',
+    p_b_elevation: '',
     changed: false,
   }),
   actions: {
@@ -26,9 +28,11 @@ export const useDistanceStore = defineStore('distance', {
         this.arc_distance = response.data.arc_distance;
         this.az_a_b = response.data.az_a_b;
         this.az_b_a = response.data.az_b_a;
+        this.p_a_elevation = response.data.p_a_elevation;
+        this.p_b_elevation = response.data.p_b_elevation;
         this.changed = true;
       }
-      catch(arror) {
+      catch(error) {
         alert(error);
       };
     },
