@@ -3,10 +3,10 @@ import axios from "axios";
 
 export const useDistanceStore = defineStore('distance', {
   state: () => ({
-    la_a: 0,
-    lo_a: 0,
-    la_b: 0,
-    lo_b: 0,
+    la_a: '',
+    lo_a: '',
+    la_b: '',
+    lo_b: '',
     distance: '',
     arc_distance: '',
     az_a_b: '',

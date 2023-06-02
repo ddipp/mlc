@@ -32,7 +32,7 @@
   </fieldset>
   <button @click="distance.calculate()">Calculate</button>
 
-  <div v-if="distance.changed">
+  <div v-if="distance.changed" class="answer">
     <fieldset>
       <ul>
         <li>Distance between two points in kilometers in a straight line {{ distance.distance }}</li>
@@ -47,7 +47,6 @@
 </template>
 
 <script setup>
-import axios from 'axios';
 import { computed } from 'vue';
 import { useDistanceStore } from '@/stores/distance';
 
