@@ -47,6 +47,7 @@
 </template>
 
 <script setup>
+// TODO: rename variable
 import { computed } from 'vue';
 import { useDistanceStore } from '@/stores/distance';
 

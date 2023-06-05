@@ -4,7 +4,7 @@
     font-family: sans-serif;
 }
 .container {
-    margin-top: 35px;
+    margin-top: 15px;
     background-color: beige;
 }
 .row {
@@ -18,10 +18,15 @@
 }
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, 600px);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  justify-items: stretch;
+  align-items: stretch;
 }
 .grid > div {
+  width: 550px;
+  border: 1px dashed gray;
   background: #EDE7F6;
   padding: 1.5rem;
   border-radius: 1rem;
