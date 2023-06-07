@@ -8,3 +8,4 @@ __pycache__
 requirements.dev.txt
 productionconfig.py
 backend/data/
+tmp/

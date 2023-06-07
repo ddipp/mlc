@@ -1,13 +1,9 @@
-import math as m
 from lib.srtm import srtm
 from lib import GeoPoint
 
-EARTH_RADIUS = 6371009
-
 
 class GeoPath:
-    """ Radio path. Start and end points, antenna heights and operating frequency are set.
-    """
+    """ Radio path. Start and end points """
 
     def __init__(self, startpoint: GeoPoint, stoppoint: GeoPoint):
         self.startpoint = startpoint
@@ -15,14 +11,6 @@ class GeoPath:
         self.length = self.startpoint.distance_to(self.stoppoint)
         # List for relief
         self.relief = list()
-
-    def arc_height(self, distance: int) -> float:
-        """ The height of the planet's arc at a given distance (in meters) from the start of the path
-        """
-        a = (m.pi - 2 * m.acos(self.length / (2 * EARTH_RADIUS))) / 2
-        t = -1 + distance / (self.length / 2)
-        h = EARTH_RADIUS * (m.sqrt((1 - (t**2) * (m.sin(a)**2))) - m.cos(a))
-        return h
 
     def get_relief(self, incremental: int = 10):
         """ Calculate elevation points on a straight line between start and end.
@@ -49,24 +37,3 @@ class GeoPath:
 
         nextpoint = self.stoppoint
         self.relief.append((self.length, srtm.get_elevation_point(nextpoint.latitude, nextpoint.longitude)))
-
-    def get_chart_data(self):
-        """ Chart data.
-            Returns a list of data points:
-            - distance from starting point
-            - relief height
-            - the height of the relief, taking into account the curvature of the planet
-        """
-        chart_data = {'distance': [], 'relief': [], 'relief_arc': []}
-        # checking the availability of terrain data. If not, then we calculate.
-        if len(self.relief) == 0:
-            self.get_relief()
-
-        for point in self.relief:
-            distance = point[0]
-            elevation = point[1]
-            arc_height = self.arc_height(distance)
-            chart_data['distance'].append(distance)
-            chart_data['relief'].append(elevation)
-            chart_data['relief_arc'].append(elevation + arc_height)
-        return chart_data
