@@ -1,5 +1,5 @@
 <template>
-  <h3>Find distance and bearing between two coordinates</h3>
+  <h3>Find distance and bearing between two points</h3>
   <fieldset>
     <legend>Point A</legend>
     <div class="row">
