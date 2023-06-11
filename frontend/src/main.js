@@ -8,7 +8,7 @@ import Axios from 'axios';
 import App from './App.vue';
 import router from './router';
 
-Axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? '/mlc/api/v0.1/' : 'http://127.0.0.1:5000/mlc/api/v0.1/';
+Axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? '/mlc/api/v1/' : 'http://127.0.0.1:5000/mlc/api/v1/';
 
 const app = createApp(App);
 

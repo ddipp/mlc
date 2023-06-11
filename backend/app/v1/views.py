@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 from lib import GeoPoint
 
-v01 = Blueprint('v01', __name__)
+v01 = Blueprint('v1', __name__)
 
 COEFF = 1000000
 

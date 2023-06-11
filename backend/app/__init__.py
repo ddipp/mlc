@@ -12,6 +12,6 @@ except ImportError:
 CORS(app, resources={r"/mlc/api/*": {"origins": ["http://localhost:5173"]}})
 
 
-from app.v01.views import v01  # noqa
+from app.v1.views import v01  # noqa
 
-app.register_blueprint(v01, url_prefix='/mlc/api/v0.1')
+app.register_blueprint(v01, url_prefix='/mlc/api/v1')
