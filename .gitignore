@@ -9,3 +9,4 @@ requirements.dev.txt
 productionconfig.py
 backend/data/
 tmp/
+example.py

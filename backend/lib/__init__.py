@@ -1,2 +1,2 @@
 from .libGeoPoint import GeoPoint  # noqa
-from .libProfiles import GeoProfile  # noqa
+from .libGeoProfile import GeoProfile  # noqa
