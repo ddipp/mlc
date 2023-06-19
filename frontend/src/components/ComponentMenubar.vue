@@ -8,8 +8,8 @@
       <!-- NAVIGATION MENUS -->
       <div class="menu">
         <li><router-link to='/'>Home</router-link></li>
-        <li><router-link to='/calculate'>Calculate</router-link></li>
-<!--         
+        <li><router-link to='/calculate'>Points</router-link></li>
+<!--
         <li class="services">
           <a href="/">Services</a>
           <ul class="dropdown">
@@ -58,7 +58,7 @@
 
 /* LOGO */
 .logo {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 /* NAVBAR MENU */
