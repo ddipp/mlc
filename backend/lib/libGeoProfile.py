@@ -3,7 +3,7 @@ from lib import GeoPoint
 
 
 class GeoProfile:
-    """ Radio path. Start and end points """
+    """ Geo path. Start and end points """
 
     def __init__(self, startpoint: GeoPoint, stoppoint: GeoPoint):
         self.startpoint = startpoint

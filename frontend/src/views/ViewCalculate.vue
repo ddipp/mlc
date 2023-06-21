@@ -13,5 +13,5 @@
 import ComponentDistance from '@/components/ComponentDistance.vue';
 import ComponentNextPoint from '@/components/ComponentNextPoint.vue';
 
-document.title = 'Profile radio planner';
+document.title = 'Calculate points';
 </script>

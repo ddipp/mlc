@@ -5,6 +5,7 @@
       <!-- NAVIGATION MENUS -->
       <li><router-link to='/'>Home</router-link></li>
       <li><router-link to='/calculate'>Points</router-link></li>
+      <li><router-link to='/path'>Path</router-link></li>
     </ul>
     <ul>
       <li>Profile radio planner</li>

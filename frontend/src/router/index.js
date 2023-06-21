@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-// import ViewHomePage from '../views/ViewHomePage.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,12 +13,11 @@ const router = createRouter({
       name: 'calculate',
       component: () => import('@/views/ViewCalculate.vue'),
     },
-
-/*    {
-      path: '/',
-      name: 'home',
-      component: ViewHomePage,
-    },*/
+    {
+      path: '/path',
+      name: 'path',
+      component: () => import('@/views/ViewPath.vue'),
+    },
   ],
 });
 
