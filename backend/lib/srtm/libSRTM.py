@@ -29,7 +29,7 @@ def file_name_for_point(latitude: float, longitude: float) -> str:
                                      east_west, str(longitude).zfill(3))
 
 
-def hgt_file(latitude: float, longitude: float) -> Path | None:
+def hgt_file(latitude: float, longitude: float) -> Path:
     """
     For the specified coordinates, returns the name of the SRTM3 file.
     If this file is not in the cache folder, then we look for the packed file in the srtm3 folder, unpack it and return the name.
@@ -53,7 +53,7 @@ def hgt_file(latitude: float, longitude: float) -> Path | None:
         return cache_hgt_file_name
 
 
-def read_elevation(file, latitude: float, longitude: float) -> int | None:
+def read_elevation(file, latitude: float, longitude: float) -> int:
     # For the northern hemisphere
     if latitude > 0:
         i = 1200 - int(round((abs(latitude) - abs(int(latitude))) * (1201 - 1), 0))
@@ -79,7 +79,7 @@ opened_srtm_file = None
 f = open("/dev/null", 'rb')
 
 
-def get_elevation_point(latitude: float, longitude: float) -> int | None:
+def get_elevation_point(latitude: float, longitude: float) -> int:
     """ For the given coordinates, returns the height of the ground level above sea level
         (or None if there is no data).
         To get the height of one point, we read only one byte from the file.
