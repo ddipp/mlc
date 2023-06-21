@@ -1,6 +1,6 @@
 <template>
   <ComponentMenubar />
-  <div class="container">
+  <div class="container-fluid">
     <RouterView />
   </div>
 </template>

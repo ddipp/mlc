@@ -1,4 +1,4 @@
-import './assets/main.css';
+import './assets/css/pico.css';
 
 import { createApp } from 'vue';
 
