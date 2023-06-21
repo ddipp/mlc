@@ -2,38 +2,38 @@
   <h3>Find next point by distance and bearing </h3>
   <fieldset>
     <legend>Point A</legend>
-    <div class="row">
-      <div class="column">Latitude</div>
-      <div class="column">
-        <input v-model="latitude_a" placeholder="Latitude">
-      </div>
-    </div>
-    <div class="row">
-      <div class="column">Longitude</div>
-      <div class="column">
-        <input v-model="longitude_a" placeholder="Longitude">
-      </div>
-    </div>
-    <div class="row">
-      <div class="column">Distance (km)</div>
-      <div class="column">
-        <input v-model="distance" placeholder="Distance">
-      </div>
-    </div>
-    <div class="row">
-      <div class="column">Bearing (°)</div>
-      <div class="column">
-        <input v-model="bearing" placeholder="Bearing">
-      </div>
+    <div class="grid">
+      <label for="la_a">
+        Latitude
+        <input id="la_a" v-model="la_a" placeholder="Latitude">
+      </label>
+      <label for="lo_a">
+        Longitude
+        <input id="lo_a" v-model="lo_a" placeholder="Longitude">
+      </label>
+      <label for="dis">
+        Distance
+        <input id="dis" v-model="dis" placeholder="Distance">
+      </label>
+      <label for="bea">
+        Bearing (°)
+        <input id="bea" v-model="bea" placeholder="Bearing (°)">
+      </label>
     </div>
   </fieldset>
   <button @click="nextpoint.calculate()">Calculate</button>
   <div v-if="nextpoint.changed" class="answer">
     <fieldset>
+      <legend>Point A</legend>
+      <ul>
+        <li>Altitude {{ nextpoint.p_a_elevation }} m</li>
+      </ul>
+    </fieldset>
+    <fieldset>
       <legend>Point B</legend>
       <ul>
-        <li>Latitude {{ nextpoint.latitude_b }}</li>
-        <li>Longitude {{ nextpoint.longitude_b }}</li>
+        <li>Latitude {{ nextpoint.la_b }}</li>
+        <li>Longitude {{ nextpoint.lo_b }}</li>
         <li>Altitude {{ nextpoint.p_b_elevation }} m</li>
       </ul>
     </fieldset>
@@ -47,42 +47,42 @@ import { useNextPointStore } from '@/stores/nextpoint';
 
 const nextpoint = useNextPointStore();
 
-const latitude_a = computed({
+const la_a = computed({
   get() {
-    return nextpoint.latitude_a;
+    return nextpoint.la_a;
   },
   set(newValue) {
-    nextpoint.latitude_a = newValue;
+    nextpoint.la_a = newValue;
     nextpoint.changed = false;
   },
 });
 
-const longitude_a = computed({
+const lo_a = computed({
   get() {
-    return nextpoint.longitude_a;
+    return nextpoint.lo_a;
   },
   set(newValue) {
-    nextpoint.longitude_a = newValue;
+    nextpoint.lo_a = newValue;
     nextpoint.changed = false;
   },
 });
 
-const distance = computed({
+const dis = computed({
   get() {
-    return nextpoint.distance;
+    return nextpoint.dis;
   },
   set(newValue) {
-    nextpoint.distance = newValue;
+    nextpoint.dis = newValue;
     nextpoint.changed = false;
   },
 });
 
-const bearing = computed({
+const bea = computed({
   get() {
-    return nextpoint.bearing;
+    return nextpoint.bea;
   },
   set(newValue) {
-    nextpoint.bearing = newValue;
+    nextpoint.bea = newValue;
     nextpoint.changed = false;
   },
 });

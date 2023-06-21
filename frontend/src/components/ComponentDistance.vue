@@ -2,32 +2,29 @@
   <h3>Find distance and bearing between two points</h3>
   <fieldset>
     <legend>Point A</legend>
-    <div class="row">
-      <div class="column">Latitude</div>
-      <div class="column">
-        <input v-model="la_a" placeholder="Latitude">
-      </div>
-    </div>
-    <div class="row">
-      <div class="column">Longitude</div>
-      <div class="column">
-        <input v-model="lo_a" placeholder="Longitude">
-      </div>
+    <div class="grid">
+      <label for="la_a">
+        Latitude
+        <input id="la_a" v-model="la_a" placeholder="Latitude">
+      </label>
+      <label for="lo_a">
+        Longitude
+        <input id="lo_a" v-model="lo_a" placeholder="Longitude">
+      </label>
     </div>
   </fieldset>
+
   <fieldset>
     <legend>Point B</legend>
-    <div class="row">
-      <div class="column">Latitude</div>
-      <div class="column">
-        <input v-model="la_b" placeholder="Latitude">
-      </div>
-    </div>
-    <div class="row">
-      <div class="column">Longitude</div>
-      <div class="column">
-        <input v-model="lo_b" placeholder="Longitude">
-      </div>
+    <div class="grid">
+      <label for="la_b">
+        Latitude
+        <input id="la_b" v-model="la_b" placeholder="Latitude">
+      </label>
+      <label for="lo_b">
+        Longitude
+        <input id="lo_b" v-model="lo_b" placeholder="Longitude">
+      </label>
     </div>
   </fieldset>
   <button @click="distance.calculate()">Calculate</button>
