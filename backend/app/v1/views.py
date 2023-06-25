@@ -1,7 +1,9 @@
 import io
 import base64
 import matplotlib.pyplot as plt
-from flask import Blueprint, jsonify
+
+from flask import Blueprint, jsonify, current_app
+
 
 from lib import GeoPoint, GeoProfile
 
@@ -9,6 +11,13 @@ from lib import GeoPoint, GeoProfile
 v01 = Blueprint('v1', __name__)
 
 COEFF = 1000000
+
+
+@v01.route('xy/<int(signed=True):x>/<int(signed=True):y>')
+def xy(x, y):
+    rq_job = current_app.task_queue.enqueue('app.v1.tasks.addxy', x, y)
+    return jsonify(sum=x + y,
+                   rq_job=rq_job.get_id())
 
 
 @v01.route('profile/<int(signed=True):la_a>/<int(signed=True):lo_a>/<int(signed=True):la_b>/<int(signed=True):lo_b>')

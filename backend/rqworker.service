@@ -13,6 +13,9 @@ ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true
 Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=rqworker
 
 [Install]
 WantedBy=multi-user.target
