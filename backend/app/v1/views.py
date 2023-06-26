@@ -17,7 +17,7 @@ COEFF = 1000000
 def xy(x, y):
     rq_job = current_app.task_queue.enqueue('app.v1.tasks.addxy', x, y)
     return jsonify(sum=x + y,
-                   rq_job=rq_job.get_id())
+                   job_id=rq_job.get_id())
 
 
 @v01.route('profile/<int(signed=True):la_a>/<int(signed=True):lo_a>/<int(signed=True):la_b>/<int(signed=True):lo_b>')
