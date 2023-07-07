@@ -2,6 +2,7 @@ import io
 import base64
 import matplotlib.pyplot as plt
 
+from rq.job import Job
 from flask import Blueprint, jsonify, current_app
 
 
@@ -13,11 +14,25 @@ v01 = Blueprint('v1', __name__)
 COEFF = 1000000
 
 
+@v01.route('xy_check/<string:job_id>')
+def xy_check(job_id):
+    try:
+        job = Job.fetch(job_id, connection=current_app.redis)
+        job_status = job.get_status()
+        job_result = job.result
+    except Exception:
+        job_status = None
+        job_result = None
+    return jsonify(job_status=job_status,
+                   job_result=job_result)
+
+
 @v01.route('xy/<int(signed=True):x>/<int(signed=True):y>')
 def xy(x, y):
     rq_job = current_app.task_queue.enqueue('app.v1.tasks.addxy', x, y)
-    return jsonify(sum=x + y,
-                   job_id=rq_job.get_id())
+    return jsonify(job_id=rq_job.id,
+                   job_status=rq_job.get_status(),
+                   job_result=rq_job.result)
 
 
 @v01.route('profile/<int(signed=True):la_a>/<int(signed=True):lo_a>/<int(signed=True):la_b>/<int(signed=True):lo_b>')

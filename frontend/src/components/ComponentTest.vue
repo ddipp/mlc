@@ -20,6 +20,8 @@
     <fieldset>
       <ul>
         <li>Job ID {{ test.job_id }}</li>
+        <li>Job status {{ test.job_status }}</li>
+        <li>Job result {{ test.job_result }}</li>
         <li>SUM {{ test.sum }}</li>
       </ul>
     </fieldset>
