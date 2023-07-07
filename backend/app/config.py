@@ -1,2 +1,3 @@
-SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
-SECRET_KEY = 'my strong secret key'
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 3

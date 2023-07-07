@@ -10,3 +10,4 @@ productionconfig.py
 backend/data/cache/*
 tmp/
 example.py
+test.py
