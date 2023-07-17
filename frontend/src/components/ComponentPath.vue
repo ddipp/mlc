@@ -39,7 +39,7 @@
         <li>Point B. Altitude {{ path.p_b_elevation }} m</li>
       </ul>
     </fieldset>
-    <img alt="Profile PointA to PointB" v-bind:src="path.graph"/>
+    <img alt="Profile PointA to PointB" :src="path.profile_url + path.profile_name">
   </div>
 </template>
 
