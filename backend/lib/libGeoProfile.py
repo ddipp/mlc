@@ -43,9 +43,8 @@ class GeoProfile:
             Returns a list of data points:
             - distance from starting point
             - relief height
-            - the height of the relief, taking into account the curvature of the planet
         """
-        chart_data = {'distance': [], 'relief': [], 'relief_arc': []}
+        chart_data = {'distance': [], 'relief': []}
         # checking the availability of terrain data. If not, then we calculate.
         if len(self.relief) == 0:
             self.get_relief()

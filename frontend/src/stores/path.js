@@ -47,11 +47,10 @@ export const usePathStore = defineStore('path', {
       this.p_a_elevation = '';
       this.p_b_elevation = '';
       this.profile_name = '';
-      const c = 1000000;
-      const la_a = parseInt(this.la_a * c, 10);
-      const lo_a = parseInt(this.lo_a * c, 10);
-      const la_b = parseInt(this.la_b * c, 10);
-      const lo_b = parseInt(this.lo_b * c, 10);
+      const la_a = parseFloat(this.la_a);
+      const lo_a = parseFloat(this.lo_a);
+      const la_b = parseFloat(this.la_b);
+      const lo_b = parseFloat(this.lo_b);
       try {
         const response = await axios.get(`/profile_add_task/${la_a}/${lo_a}/${la_b}/${lo_b}`);
         this.job_id = response.data.job_id;

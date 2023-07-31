@@ -40,11 +40,10 @@ export const useNextPointStore = defineStore('nextpoint', {
       this.lo_b = '';
       this.p_a_elevation = '';
       this.p_b_elevation = '';
-      const c = 1000000;
-      const la_a = parseInt(this.la_a * c, 10);
-      const lo_a = parseInt(this.lo_a * c, 10);
-      const dis = parseInt(this.dis * c, 10);
-      const bea = parseInt(this.bea * c, 10);
+      const la_a = parseFloat(this.la_a);
+      const lo_a = parseFloat(this.lo_a);
+      const dis = parseFloat(this.dis);
+      const bea = parseFloat(this.bea);
       try {
         const response = await axios.get(`/nextpoint_add_task/${la_a}/${lo_a}/${dis}/${bea}`);
         this.job_id = response.data.job_id;
