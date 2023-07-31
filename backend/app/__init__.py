@@ -3,8 +3,15 @@ import rq
 from flask import Flask
 from flask_cors import CORS
 
+from werkzeug.routing import FloatConverter as BaseFloatConverter
+
+
+class FloatConverter(BaseFloatConverter):
+    regex = r'-?\d+(?:\.\d+)?'
+
 
 app = Flask(__name__)
+app.url_map.converters['float'] = FloatConverter
 
 try:
     app.config.from_object('app.productionconfig')

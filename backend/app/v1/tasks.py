@@ -6,9 +6,9 @@ from lib import GeoPoint, GeoProfile, RadioProfile
 COEFF = 1000000
 
 
-def radio_profile(la_a, lo_a, h_a, la_b, lo_b, h_b, f, tx_p, r_s, a_g_a, a_g_b, cache_dir):
+def radio_profile(la_a: float, lo_a: float, h_a: float, la_b: float, lo_b: float, h_b: float, f: float, tx_p: float, r_s: float,
+                  a_g_a: float, a_g_b: float, cache_dir: str):
     filename = "{0}_{1}_{2}_{3}_{4}_{5}_{6}.png".format(la_a, lo_a, h_a, la_b, lo_b, h_b, f)
-    (la_a, lo_a, la_b, lo_b) = (la_a / COEFF, lo_a / COEFF, la_b / COEFF, lo_b / COEFF)
     p_a = GeoPoint(la_a, lo_a)
     p_b = GeoPoint(la_b, lo_b)
 
@@ -24,7 +24,7 @@ def radio_profile(la_a, lo_a, h_a, la_b, lo_b, h_b, f, tx_p, r_s, a_g_a, a_g_b, 
     ax = fig.add_subplot()
 
     ax.grid(True)
-    ax.annotate(f'Antenna gain {radio_profile.antenna_gain_a:.1f} dBm',
+    ax.annotate(f'Antenna gain {radio_profile.antenna_gain_a:.1f} dBm\nHeight {h_a}m',
                 xy=(0, profile_chart['los_height'][0]), xycoords='data',
                 xytext=(0.1, 0.5), textcoords='axes fraction',
                 horizontalalignment='left',
@@ -33,7 +33,7 @@ def radio_profile(la_a, lo_a, h_a, la_b, lo_b, h_b, f, tx_p, r_s, a_g_a, a_g_b, 
                                 connectionstyle="arc3,rad=0.3"),
                 bbox=dict(boxstyle="round", fc="1", alpha=0.5))
 
-    ax.annotate(f'Antenna gain {radio_profile.antenna_gain_b:.1f} dBm',
+    ax.annotate(f'Antenna gain {radio_profile.antenna_gain_b:.1f} dBm\nHeight {h_b}m',
                 xy=(profile_chart['distance'][-1], profile_chart['los_height'][-1]), xycoords='data',
                 xytext=(0.9, 0.5), textcoords='axes fraction',
                 horizontalalignment='right',
@@ -86,9 +86,8 @@ def radio_profile(la_a, lo_a, h_a, la_b, lo_b, h_b, f, tx_p, r_s, a_g_a, a_g_b, 
             }
 
 
-def profile(la_a, lo_a, la_b, lo_b, cache_dir):
+def profile(la_a: float, lo_a: float, la_b: float, lo_b: float, cache_dir: str):
     filename = "{0}_{1}_{2}_{3}.png".format(la_a, lo_a, la_b, lo_b)
-    (la_a, lo_a, la_b, lo_b) = (la_a / COEFF, lo_a / COEFF, la_b / COEFF, lo_b / COEFF)
     p_a = GeoPoint(la_a, lo_a)
     p_b = GeoPoint(la_b, lo_b)
 
@@ -124,8 +123,7 @@ def profile(la_a, lo_a, la_b, lo_b, cache_dir):
             }
 
 
-def nextpoint(latitude_a, longitude_a, distance, bearing):
-    (latitude_a, longitude_a, distance, bearing) = (latitude_a / COEFF, longitude_a / COEFF, distance / COEFF * 1000, bearing / COEFF)
+def nextpoint(latitude_a: float, longitude_a: float, distance: float, bearing: float):
     p_a = GeoPoint(latitude_a, longitude_a)
     p_b = p_a.nextpoint(bearing, distance)
     return {'latitude_b': p_b.latitude,
@@ -135,8 +133,7 @@ def nextpoint(latitude_a, longitude_a, distance, bearing):
             }
 
 
-def distance(la_a, lo_a, la_b, lo_b):
-    (la_a, lo_a, la_b, lo_b) = (la_a / COEFF, lo_a / COEFF, la_b / COEFF, lo_b / COEFF)
+def distance(la_a: float, lo_a: float, la_b: float, lo_b: float):
     p_a = GeoPoint(la_a, lo_a)
     p_b = GeoPoint(la_b, lo_b)
     distance = p_a.distance_to(p_b) / 1000
