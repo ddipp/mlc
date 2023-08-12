@@ -1,35 +1,27 @@
-# frontend
+# Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.6.
 
-## Recommended IDE Setup
+## Development server
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Customize configuration
+## Code scaffolding
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Project Setup
+## Build
 
-```sh
-npm install
-```
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-### Compile and Hot-Reload for Development
+## Running unit tests
 
-```sh
-npm run dev
-```
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-### Compile and Minify for Production
+## Running end-to-end tests
 
-```sh
-npm run build
-```
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-### Lint with [ESLint](https://eslint.org/)
+## Further help
 
-```sh
-npm run lint
-```
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

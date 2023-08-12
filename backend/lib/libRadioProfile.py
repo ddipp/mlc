@@ -3,6 +3,8 @@ import math as m
 from lib.srtm import srtm
 from lib import GeoPoint, EARTH_RADIUS
 
+# TODO: create tests
+
 
 class RadioProfile:
     """ Geo path. Start and end points """

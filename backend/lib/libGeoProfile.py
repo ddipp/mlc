@@ -1,6 +1,8 @@
 from lib.srtm import srtm
 from lib import GeoPoint
 
+# TODO: create tests
+
 
 class GeoProfile:
     """ Geo path. Start and end points """

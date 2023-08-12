@@ -2,12 +2,20 @@ import matplotlib.pyplot as plt
 
 from lib import GeoPoint, GeoProfile, RadioProfile
 
+# TODO: create tests
 
-COEFF = 1000000
+
+def radio_profile_check(la_a: float, lo_a: float, h_a: float, la_b: float, lo_b: float, h_b: float, f: float, tx_p: float, r_s: float,
+                        a_g_a: float, a_g_b: float):
+    p_a = GeoPoint(la_a, lo_a)
+    p_b = GeoPoint(la_b, lo_b)
+    radio_profile = RadioProfile(p_a, h_a, p_b, h_b, f)
+    radio_profile.set_radio_parameters(tx_power=tx_p, receiver_sensitivity=r_s, antenna_gain_a=a_g_a, antenna_gain_b=a_g_b)
+    return {"los": radio_profile.line_of_sight, "los_f": radio_profile.visibility_in_fresnel_zone}
 
 
-def radio_profile(la_a: float, lo_a: float, h_a: float, la_b: float, lo_b: float, h_b: float, f: float, tx_p: float, r_s: float,
-                  a_g_a: float, a_g_b: float, cache_dir: str):
+def radio_profile_graph(la_a: float, lo_a: float, h_a: float, la_b: float, lo_b: float, h_b: float, f: float, tx_p: float, r_s: float,
+                        a_g_a: float, a_g_b: float, cache_dir: str):
     filename = "{0}_{1}_{2}_{3}_{4}_{5}_{6}.png".format(la_a, lo_a, h_a, la_b, lo_b, h_b, f)
     p_a = GeoPoint(la_a, lo_a)
     p_b = GeoPoint(la_b, lo_b)
@@ -86,7 +94,7 @@ def radio_profile(la_a: float, lo_a: float, h_a: float, la_b: float, lo_b: float
             }
 
 
-def profile(la_a: float, lo_a: float, la_b: float, lo_b: float, cache_dir: str):
+def profile_graph(la_a: float, lo_a: float, la_b: float, lo_b: float, cache_dir: str):
     filename = "{0}_{1}_{2}_{3}.png".format(la_a, lo_a, la_b, lo_b)
     p_a = GeoPoint(la_a, lo_a)
     p_b = GeoPoint(la_b, lo_b)
