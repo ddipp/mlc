@@ -7,7 +7,7 @@ import { AppComponent } from '@app/app.component';
 import { MenuBarComponent } from '@app/c/menu-bar/menu-bar.component';
 import { HomeComponent } from '@app/c/home/home.component';
 import { TestsComponent } from '@app/c/tests/tests.component';
-import { StatusBarComponent } from './c/status-bar/status-bar.component';
+import { StatusBarComponent } from '@app/c/status-bar/status-bar.component';
 
 @NgModule({
   declarations: [
