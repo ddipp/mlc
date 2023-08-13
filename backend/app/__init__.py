@@ -21,7 +21,7 @@ except ImportError:
 app.redis = redis.from_url('redis://{0}:{1}/{2}'.format(app.config['REDIS_HOST'], app.config['REDIS_PORT'], app.config['REDIS_DB']))
 app.task_queue = rq.Queue('default', connection=app.redis)
 
-CORS(app, resources={r"/mlc/api/*": {"origins": ["http://localhost:5173"]}})
+CORS(app, resources={r"/mlc/api/*": {"origins": ["http://localhost:4200"]}})
 
 
 from app.v1.views import v01  # noqa

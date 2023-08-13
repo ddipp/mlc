@@ -7,6 +7,11 @@ v01 = Blueprint('v1', __name__)
 COEFF = 1000000
 
 
+@v01.route('test')
+def test():
+    return jsonify(name='test data')
+
+
 @v01.route('profile_check/<string:job_id>')
 def profile_check(job_id):
     try:
