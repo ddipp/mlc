@@ -4,9 +4,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class StatusService {
-  status: string = 'status message';
+  private status: string = '';
 
   setStatus(status: string) {
     this.status = status;
+  }
+
+  getStatus(): string {
+    return this.status;
   }
 }

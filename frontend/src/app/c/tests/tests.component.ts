@@ -20,6 +20,10 @@ export class TestsComponent {
     private statusService: StatusService,
   ){}
 
+  statusSet(){
+    this.statusService.setStatus('click statusSet');
+  }
+
   ngOnInit(){
     this.http.get(this.serverUrl + 'test').subscribe({next:(data:any) => this.getdata=data.name});
     this.statusService.setStatus('ngOnInit from Tests page');
