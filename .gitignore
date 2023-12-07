@@ -9,6 +9,5 @@ requirements.dev.txt
 productionconfig.py
 backend/data/cache/*
 tmp/
-tmp_utils/
 example.py
 test.py

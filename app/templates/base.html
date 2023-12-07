@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/pico.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}" />
+    <title>
+        {% if title %}
+            {{ title }}
+        {% else %}
+            Index page
+        {% endif %}
+    </title>
+</head>
+<body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        {% block footer %}
+        {% endblock %}
+    </div>
+</body>
+</html>
