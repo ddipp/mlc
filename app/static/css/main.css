@@ -1,9 +1,12 @@
 :root {
-  --font-weight: 400;
-  --font-size: 16px;
+  --header-active-border-color: #ddd;
 }
-/*
-nav {
-  background: #ccc;
+
+header .active {
+  background: var(--header-active-border-color);
 }
-*/
+
+footer {
+  padding: calc(0.1 * var(--universal-padding));
+  margin: 0px;;
+}

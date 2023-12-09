@@ -1,21 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/pico.css')}}" />
+    <meta charset="utf-8">
+    <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/minicss/mini-default.min.css')}}" />
     <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}" />
     <title>
+        MLC
         {% if title %}
-            {{ title }}
-        {% else %}
-            Index page
+            - {{ title }}
         {% endif %}
     </title>
 </head>
 <body>
-    <div id="content">{% block content %}{% endblock %}</div>
-    <div id="footer">
-        {% block footer %}
-        {% endblock %}
+    <div slass="container">
+        <header class="sticky">
+          <a href="#" class="logo">MLC</a>
+          <a href="{{url_for('v01.index')}}" class="button {% if request.path == url_for('v01.index') %}active{% endif %}">Home</a>
+          <a href="{{url_for('v01.points')}}" class="button {% if request.path == url_for('v01.points') %}active{% endif %}">Points</a>
+        </header>
+
+        <main class="container">
+            {% block content %}{% endblock %}
+        </main>
+        <footer class="sticky">
+            {% block footer %}
+            {% endblock %}
+        </footer>
     </div>
 </body>
 </html>
