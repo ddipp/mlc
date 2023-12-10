@@ -10,9 +10,15 @@ def index():
     return render_template('index.html', title="Home")
 
 
-@v01.route('points')
-def points():
+@v01.route('distance')
+def distance():
     distance_form = DistanceForm()
+    return render_template('distance.html', title="Distance",
+                           distance_form=distance_form)
+
+
+@v01.route('nextpoint')
+def nextpoint():
     nextpoint_form = NextPointForm()
-    return render_template('points.html', title="Points",
-                           distance_form=distance_form, nextpoint_form=nextpoint_form)
+    return render_template('nextpoint.html', title="NextPoint",
+                           nextpoint_form=nextpoint_form)

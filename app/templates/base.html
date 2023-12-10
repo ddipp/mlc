@@ -18,7 +18,8 @@
         <header class="sticky">
           <a href="#" class="logo">MLC</a>
           <a href="{{url_for('v01.index')}}" class="button {% if request.path == url_for('v01.index') %}active{% endif %}">Home</a>
-          <a href="{{url_for('v01.points')}}" class="button {% if request.path == url_for('v01.points') %}active{% endif %}">Points</a>
+          <a href="{{url_for('v01.distance')}}" class="button {% if request.path == url_for('v01.distance') %}active{% endif %}">Distance</a>
+          <a href="{{url_for('v01.nextpoint')}}" class="button {% if request.path == url_for('v01.nextpoint') %}active{% endif %}">Next point</a>
         </header>
 
         <main class="container">

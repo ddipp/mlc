@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-sm">
+    <form>
+      {{ nextpoint_form.csrf_token }}
+      <fieldset>
+        <legend class="doc">Find next point by distance and bearing</legend>
+          <fieldset>
+            <legend class="doc">Point</legend>
+            <div class="row">
+              {{ nextpoint_form.latitude.label }} {{ nextpoint_form.latitude(size=20) }}
+              {{ nextpoint_form.longitude.label }} {{ nextpoint_form.longitude(size=20) }}
+            </div>
+            <div class="row">
+              {{ nextpoint_form.distance.label }} {{ nextpoint_form.distance(size=20) }}
+              {{ nextpoint_form.bearing.label }} {{ nextpoint_form.bearing(size=20) }}
+            </div>
+          </fieldset>
+          <input type="submit" value="Go" class="bordered">
+      </fieldset>
+    </form>
+  </div>
+</div>
+{% endblock %}
