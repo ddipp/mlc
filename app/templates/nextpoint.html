@@ -2,8 +2,8 @@
 {% block content %}
 <div class="row">
   <div class="col-sm">
-    <form>
-      {{ nextpoint_form.csrf_token }}
+    <form method="POST">
+      {{ nextpoint_form.hidden_tag() }}
       <fieldset>
         <legend class="doc">Find next point by distance and bearing</legend>
           <fieldset>
