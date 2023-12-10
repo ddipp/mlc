@@ -21,5 +21,29 @@
       </fieldset>
     </form>
   </div>
+  {% if answer %}
+    <div class="col-sm">
+      <ul>
+        <li>
+          Point A. Altitude {{ answer['a_elevation'] }} m
+        </li>
+        <li>
+          Point B
+          <ul>
+            <li>
+              Altitude {{ answer['b_elevation'] }} m
+            </li>
+            <li>
+              Latitude {{ answer['b_latitude'] | round(7) }}
+            </li>
+            <li>
+              Longitude {{ answer['b_longitude'] | round(7) }}
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <hr/>
+    </div>
+  {% endif %}
 </div>
 {% endblock %}

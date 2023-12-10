@@ -26,14 +26,20 @@ def distance():
         answer['az_b_a'] = p_b.azimuth(p_a)
         answer['a_elevation'] = p_a.elevation
         answer['b_elevation'] = p_b.elevation
-    else:
-        pass
     return render_template('distance.html', title="Distance",
                            distance_form=distance_form, answer=answer)
 
 
 @v01.route('nextpoint', methods=['GET', 'POST'])
 def nextpoint():
+    answer = {}
     nextpoint_form = NextPointForm()
+    if nextpoint_form.validate_on_submit():
+        p_a = GeoPoint(nextpoint_form.latitude.data, nextpoint_form.longitude.data)
+        p_b = p_a.nextpoint(nextpoint_form.bearing.data, nextpoint_form.distance.data * 1000)
+        answer['b_latitude'] = p_b.latitude
+        answer['b_longitude'] = p_b.longitude
+        answer['a_elevation'] = p_a.elevation
+        answer['b_elevation'] = p_b.elevation
     return render_template('nextpoint.html', title="Next point",
-                           nextpoint_form=nextpoint_form)
+                           nextpoint_form=nextpoint_form, answer=answer)

@@ -12,5 +12,5 @@ class DistanceForm(FlaskForm):
 class NextPointForm(FlaskForm):
     latitude = DecimalField("Latitude", [validators.DataRequired(), validators.NumberRange(min=-90, max=90)])
     longitude = DecimalField("Longitude", [validators.DataRequired(), validators.NumberRange(min=-90, max=90)])
-    distance = DecimalField("Distance", [validators.DataRequired(), validators.NumberRange(min=0, max=40000)])
-    bearing = DecimalField("Bearing (°)", [validators.DataRequired(), validators.NumberRange(min=-360, max=360)])
+    distance = DecimalField("Distance (km)", [validators.DataRequired(), validators.NumberRange(min=0, max=40000)])
+    bearing = DecimalField("Bearing (°)", [validators.InputRequired(), validators.NumberRange(min=-360, max=360)])
