@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/minicss/mini-default.min.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}" />
+    <title>
+        MLC
+        {% if title %}
+            - {{ title }}
+        {% endif %}
+    </title>
+</head>
+<body>
+    <div class="container">
+        <header class="sticky">
+          <a href="#" class="logo">MLC</a>
+          <a href="{{url_for('v01.index')}}" class="button {% if request.path == url_for('v01.index') %}active{% endif %}">Home</a>
+          <a href="{{url_for('v01.distance')}}" class="button {% if request.path == url_for('v01.distance') %}active{% endif %}">Distance</a>
+          <a href="{{url_for('v01.nextpoint')}}" class="button {% if request.path == url_for('v01.nextpoint') %}active{% endif %}">Next point</a>
+        </header>
+
+        <main class="container">
+            {% block content %}{% endblock %}
+        </main>
+        <footer class="sticky">
+            {% block footer %}
+            {% endblock %}
+        </footer>
+    </div>
+</body>
+</html>

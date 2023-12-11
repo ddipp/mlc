@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-sm">
+    <form method="POST">
+      {{ distance_form.hidden_tag() }}
+      <fieldset>
+        <legend class="doc">Find distance and bearing between two points</legend>
+          <div class="row">
+            <fieldset>
+              <legend class="doc">Point A</legend>
+              {{ distance_form.latitude_a.label }} {{ distance_form.latitude_a(size=20) }}
+              {{ distance_form.longitude_a.label }} {{ distance_form.longitude_a(size=20) }}
+            </fieldset>
+          </div>
+          <div class="row">
+            <fieldset>
+              <legend class="doc">Point B</legend>
+              {{ distance_form.latitude_b.label }} {{ distance_form.latitude_b(size=20) }}
+              {{ distance_form.longitude_b.label }} {{ distance_form.longitude_b(size=20) }}
+            </fieldset>
+          </div>
+          <input type="submit" value="Go" class="bordered">
+      </fieldset>
+    </form>
+  </div>
+  {% if answer %}
+    <div class="col-sm">
+      <ul>
+        <li>
+          Distance between two points in a straight line {{ answer['distance'] | round(3) }} km
+        </li>
+        <li>
+          Distance between two points on the surface of the planet {{ answer['arc_distance'] | round(3) }} km
+        </li>
+        <li>
+          Cource from Point A to Point B {{ answer['az_a_b'] | round(2) }}°
+        </li>
+        <li>
+          Cource from Point B to Point A {{ answer['az_b_a'] | round(2) }}°
+        </li>
+        <li>
+          Point A. Altitude {{ answer['a_elevation'] }} m
+        </li>
+        <li>
+          Point B. Altitude {{ answer['b_elevation'] }} m
+        </li>
+      </ul>
+      <hr/>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

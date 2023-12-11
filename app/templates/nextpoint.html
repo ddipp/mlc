@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-sm">
+    <form method="POST">
+      {{ nextpoint_form.hidden_tag() }}
+      <fieldset>
+        <legend class="doc">Find next point by distance and bearing</legend>
+          <fieldset>
+            <legend class="doc">Point</legend>
+            <div class="row">
+              {{ nextpoint_form.latitude.label }} {{ nextpoint_form.latitude(size=20) }}
+              {{ nextpoint_form.longitude.label }} {{ nextpoint_form.longitude(size=20) }}
+            </div>
+            <div class="row">
+              {{ nextpoint_form.distance.label }} {{ nextpoint_form.distance(size=20) }}
+              {{ nextpoint_form.bearing.label }} {{ nextpoint_form.bearing(size=20) }}
+            </div>
+          </fieldset>
+          <input type="submit" value="Go" class="bordered">
+      </fieldset>
+    </form>
+  </div>
+  {% if answer %}
+    <div class="col-sm">
+      <ul>
+        <li>
+          Point A. Altitude {{ answer['a_elevation'] }} m
+        </li>
+        <li>
+          Point B
+          <ul>
+            <li>
+              Altitude {{ answer['b_elevation'] }} m
+            </li>
+            <li>
+              Latitude {{ answer['b_latitude'] | round(7) }}
+            </li>
+            <li>
+              Longitude {{ answer['b_longitude'] | round(7) }}
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <hr/>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

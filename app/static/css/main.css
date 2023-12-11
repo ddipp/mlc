@@ -1,0 +1,12 @@
+:root {
+  --header-active-border-color: #ddd;
+}
+
+header .active {
+  background: var(--header-active-border-color);
+}
+
+footer {
+  padding: calc(0.1 * var(--universal-padding));
+  margin: 0px;;
+}
