@@ -8,6 +8,7 @@ __pycache__
 requirements.dev.txt
 productionconfig.py
 data/cache/*
+!data/cache/.gitkeep
 tmp/
 example.py
 test.py
