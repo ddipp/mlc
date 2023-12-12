@@ -3,14 +3,14 @@ from wtforms import DecimalField, validators
 
 
 class DistanceForm(FlaskForm):
-    latitude_a = DecimalField("Latitude", [validators.DataRequired(), validators.NumberRange(min=-90, max=90)])
-    longitude_a = DecimalField("Longitude", [validators.DataRequired(), validators.NumberRange(min=-90, max=90)])
-    latitude_b = DecimalField("Latitude", [validators.DataRequired(), validators.NumberRange(min=-90, max=90)])
-    longitude_b = DecimalField("Longitude", [validators.DataRequired(), validators.NumberRange(min=-90, max=90)])
+    latitude_a = DecimalField("Latitude", [validators.InputRequired(), validators.NumberRange(min=-90, max=90)])
+    longitude_a = DecimalField("Longitude", [validators.InputRequired(), validators.NumberRange(min=-90, max=90)])
+    latitude_b = DecimalField("Latitude", [validators.InputRequired(), validators.NumberRange(min=-90, max=90)])
+    longitude_b = DecimalField("Longitude", [validators.InputRequired(), validators.NumberRange(min=-90, max=90)])
 
 
 class NextPointForm(FlaskForm):
-    latitude = DecimalField("Latitude", [validators.DataRequired(), validators.NumberRange(min=-90, max=90)])
-    longitude = DecimalField("Longitude", [validators.DataRequired(), validators.NumberRange(min=-90, max=90)])
+    latitude = DecimalField("Latitude", [validators.InputRequired(), validators.NumberRange(min=-90, max=90)])
+    longitude = DecimalField("Longitude", [validators.InputRequired(), validators.NumberRange(min=-90, max=90)])
     distance = DecimalField("Distance (km)", [validators.DataRequired(), validators.NumberRange(min=0, max=40000)])
     bearing = DecimalField("Bearing (°)", [validators.InputRequired(), validators.NumberRange(min=-360, max=360)])
