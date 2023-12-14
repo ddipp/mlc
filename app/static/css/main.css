@@ -1,5 +1,6 @@
 :root {
   --header-active-border-color: #ddd;
+  --universal-padding: 0.2rem;
 }
 
 header .active {
