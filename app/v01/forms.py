@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import DecimalField, validators
+from wtforms import DecimalField, HiddenField, validators
 
 
 class DistanceForm(FlaskForm):
+    url = HiddenField()
     latitude_a = DecimalField("Latitude", [validators.InputRequired(), validators.NumberRange(min=-90, max=90)])
     longitude_a = DecimalField("Longitude", [validators.InputRequired(), validators.NumberRange(min=-180, max=180)])
     latitude_b = DecimalField("Latitude", [validators.InputRequired(), validators.NumberRange(min=-90, max=90)])

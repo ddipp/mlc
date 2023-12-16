@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, url_for
 
 from .forms import DistanceForm, NextPointForm
 
@@ -13,8 +13,8 @@ def index():
     return render_template('index.html', title="Home")
 
 
-@v01.route('distance', methods=['GET', 'POST'])
-def distance():
+@v01.route('distance_calc', methods=['POST'])
+def distance_calc():
     answer = {}
     distance_form = DistanceForm()
     if distance_form.validate_on_submit():
@@ -26,6 +26,13 @@ def distance():
         answer['az_b_a'] = p_b.azimuth(p_a)
         answer['a_elevation'] = p_a.elevation
         answer['b_elevation'] = p_b.elevation
+    return render_template('distance_calc.html', answer=answer)
+
+
+@v01.route('distance', methods=['GET'])
+def distance():
+    answer = {}
+    distance_form = DistanceForm(url=url_for("v01.distance_calc"))
     return render_template('distance.html', title="Distance",
                            distance_form=distance_form, answer=answer)
 
