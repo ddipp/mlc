@@ -37,8 +37,8 @@ def distance():
                            distance_form=distance_form, answer=answer)
 
 
-@v01.route('nextpoint', methods=['GET', 'POST'])
-def nextpoint():
+@v01.route('nextpoint_calc', methods=['POST'])
+def nextpoint_calc():
     answer = {}
     nextpoint_form = NextPointForm()
     if nextpoint_form.validate_on_submit():
@@ -48,5 +48,12 @@ def nextpoint():
         answer['b_longitude'] = p_b.longitude
         answer['a_elevation'] = p_a.elevation
         answer['b_elevation'] = p_b.elevation
+    return render_template('nextpoint_calc.html', answer=answer)
+
+
+@v01.route('nextpoint', methods=['GET'])
+def nextpoint():
+    answer = {}
+    nextpoint_form = NextPointForm(url=url_for("v01.nextpoint_calc"))
     return render_template('nextpoint.html', title="Next point",
                            nextpoint_form=nextpoint_form, answer=answer)
