@@ -11,6 +11,7 @@ class DistanceForm(FlaskForm):
 
 
 class NextPointForm(FlaskForm):
+    url = HiddenField()
     latitude = DecimalField("Latitude", [validators.InputRequired(), validators.NumberRange(min=-90, max=90)])
     longitude = DecimalField("Longitude", [validators.InputRequired(), validators.NumberRange(min=-180, max=180)])
     distance = DecimalField("Distance (km)", [validators.DataRequired(), validators.NumberRange(min=0, max=40000)])
