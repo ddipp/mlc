@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, url_for
+from rq.job import Job
+
+from flask import current_app, Blueprint, render_template, url_for, jsonify
 
 from .forms import DistanceForm, NextPointForm
 
@@ -13,28 +15,45 @@ def index():
     return render_template('index.html', title="Home")
 
 
-@v01.route('distance_calc', methods=['POST'])
-def distance_calc():
-    answer = {}
-    distance_form = DistanceForm()
-    if distance_form.validate_on_submit():
-        p_a = GeoPoint(distance_form.latitude_a.data, distance_form.longitude_a.data)
-        p_b = GeoPoint(distance_form.latitude_b.data, distance_form.longitude_b.data)
-        answer['distance'] = p_a.distance_to(p_b) / 1000
-        answer['arc_distance'] = p_a.arc_distance_to(p_b) / 1000
-        answer['az_a_b'] = p_a.azimuth(p_b)
-        answer['az_b_a'] = p_b.azimuth(p_a)
-        answer['a_elevation'] = p_a.elevation
-        answer['b_elevation'] = p_b.elevation
-    return render_template('distance_calc.html', answer=answer)
-
-
 @v01.route('distance', methods=['GET'])
 def distance():
     answer = {}
     distance_form = DistanceForm(url=url_for("v01.distance_calc"))
     return render_template('distance.html', title="Distance",
                            distance_form=distance_form, answer=answer)
+
+
+@v01.route('distance_calc', methods=['POST'])
+def distance_calc():
+    distance_form = DistanceForm()
+    if distance_form.validate_on_submit():
+        rq_job = current_app.task_queue.enqueue('app.v01.tasks.distance',
+                                                distance_form.latitude_a.data, distance_form.longitude_a.data,
+                                                distance_form.latitude_b.data, distance_form.longitude_b.data)
+    return jsonify(job_url=url_for("v01.distance_check", job_id=rq_job.id),
+                   job_status=rq_job.get_status(),
+                   job_result=rq_job.result)
+
+
+@v01.route('distance_check/<string:job_id>', methods=['GET'])
+def distance_check(job_id):
+    try:
+        job = Job.fetch(job_id, connection=current_app.redis)
+        job_status = job.get_status()
+        job_result = job.result
+        print(job_status)
+        return jsonify(job_status=job_status,
+                       result={"distance": "{:.3f}".format(job_result['distance']),
+                               "arc_distance": "{:.3f}".format(job_result['arc_distance']),
+                               "az_a_b": "{:.3f}".format(job_result['az_a_b']),
+                               "az_b_a": "{:.3f}".format(job_result['az_b_a']),
+                               "a_elevation": job_result['a_elevation'],
+                               "b_elevation": job_result['b_elevation'],
+                               }
+                       )
+    except Exception:
+        job_status = None
+        return jsonify(job_status=job_status)
 
 
 @v01.route('nextpoint_calc', methods=['POST'])
