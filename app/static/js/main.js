@@ -25,7 +25,7 @@ $(document).ready(function () {
   $("#form").on("submit", function(event){
     event.preventDefault();
     const form_data = new FormData(this);
-/*    $("#answer").html("");*/
+    $("#answer").hide();
     $.ajax({
       type: "POST",
       url: form_data.get("url"),
