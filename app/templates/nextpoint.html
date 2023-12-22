@@ -2,7 +2,7 @@
 {% block content %}
 <div class="row">
   <div class="col-sm">
-    <form method="POST" id="form">
+    <form method="POST" id="form_1">
       {{ nextpoint_form.hidden_tag() }}
       <fieldset>
         <legend class="doc">Find next point by distance and bearing</legend>
@@ -22,6 +22,26 @@
     </form>
   </div>
   <div class="col-sm" id="answer">
+    <ul>
+      <li>
+        Point A. Altitude <span id="a_elevation"></span> m
+      </li>
+      <li>
+        Point B
+        <ul>
+          <li>
+            Altitude <span id="b_elevation"></span> m
+          </li>
+          <li>
+            Latitude <span id="b_latitude"></span>
+          </li>
+          <li>
+            Longitude <span id="b_longitude"></span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <hr/>
   </div>
 </div>
 {% endblock %}
