@@ -15,3 +15,13 @@ def distance(la_a: float, lo_a: float, la_b: float, lo_b: float):
             'a_elevation': p_a.elevation,
             'b_elevation': p_b.elevation,
             }
+
+
+def nextpoint(la_a: float, lo_a: float, distance: float, bearing: float):
+    p_a = GeoPoint(la_a, lo_a)
+    p_b = p_a.nextpoint(bearing, distance)
+    return {'b_latitude': p_b.latitude,
+            'b_longitude': p_b.longitude,
+            'a_elevation': p_a.elevation,
+            'b_elevation': p_b.elevation,
+            }

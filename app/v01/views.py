@@ -4,8 +4,6 @@ from flask import current_app, Blueprint, render_template, url_for, jsonify
 
 from .forms import DistanceForm, NextPointForm
 
-from lib import GeoPoint
-
 
 v01 = Blueprint('v01', __name__)
 
@@ -41,7 +39,6 @@ def distance_check(job_id):
         job = Job.fetch(job_id, connection=current_app.redis)
         job_status = job.get_status()
         job_result = job.result
-        print(job_status)
         return jsonify(job_status=job_status,
                        result={"distance": "{:.3f}".format(job_result['distance']),
                                "arc_distance": "{:.3f}".format(job_result['arc_distance']),
@@ -56,23 +53,38 @@ def distance_check(job_id):
         return jsonify(job_status=job_status)
 
 
-@v01.route('nextpoint_calc', methods=['POST'])
-def nextpoint_calc():
-    answer = {}
-    nextpoint_form = NextPointForm()
-    if nextpoint_form.validate_on_submit():
-        p_a = GeoPoint(nextpoint_form.latitude.data, nextpoint_form.longitude.data)
-        p_b = p_a.nextpoint(nextpoint_form.bearing.data, nextpoint_form.distance.data * 1000)
-        answer['b_latitude'] = p_b.latitude
-        answer['b_longitude'] = p_b.longitude
-        answer['a_elevation'] = p_a.elevation
-        answer['b_elevation'] = p_b.elevation
-    return render_template('nextpoint_calc.html', answer=answer)
-
-
 @v01.route('nextpoint', methods=['GET'])
 def nextpoint():
     answer = {}
     nextpoint_form = NextPointForm(url=url_for("v01.nextpoint_calc"))
     return render_template('nextpoint.html', title="Next point",
                            nextpoint_form=nextpoint_form, answer=answer)
+
+
+@v01.route('nextpoint_calc', methods=['POST'])
+def nextpoint_calc():
+    nextpoint_form = NextPointForm()
+    if nextpoint_form.validate_on_submit():
+        rq_job = current_app.task_queue.enqueue('app.v01.tasks.nextpoint', nextpoint_form.latitude.data, nextpoint_form.longitude.data,
+                                                nextpoint_form.distance.data * 1000, nextpoint_form.bearing.data)
+    return jsonify(job_url=url_for("v01.nextpoint_check", job_id=rq_job.id),
+                   job_status=rq_job.get_status(),
+                   job_result=rq_job.result)
+
+
+@v01.route('nextpoint_check/<string:job_id>', methods=['GET'])
+def nextpoint_check(job_id):
+    try:
+        job = Job.fetch(job_id, connection=current_app.redis)
+        job_status = job.get_status()
+        job_result = job.result
+        return jsonify(job_status=job_status,
+                       result={"b_latitude": "{:.7f}".format(job_result['b_latitude']),
+                               "b_longitude": "{:.7f}".format(job_result['b_longitude']),
+                               "a_elevation": job_result['a_elevation'],
+                               "b_elevation": job_result['b_elevation'],
+                               }
+                       )
+    except Exception:
+        job_status = None
+        return jsonify(job_status=job_status)

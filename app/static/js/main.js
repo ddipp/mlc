@@ -22,7 +22,7 @@ function check_task(task_url) {
 
 
 $(document).ready(function () {
-  $("#form").on("submit", function(event){
+  $("#form_1").on("submit", function(event){
     event.preventDefault();
     const form_data = new FormData(this);
     $("#answer").hide();
