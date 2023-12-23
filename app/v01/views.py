@@ -65,7 +65,8 @@ def nextpoint():
 def nextpoint_calc():
     nextpoint_form = NextPointForm()
     if nextpoint_form.validate_on_submit():
-        rq_job = current_app.task_queue.enqueue('app.v01.tasks.nextpoint', nextpoint_form.latitude.data, nextpoint_form.longitude.data,
+        rq_job = current_app.task_queue.enqueue('app.v01.tasks.nextpoint',
+                                                nextpoint_form.latitude.data, nextpoint_form.longitude.data,
                                                 nextpoint_form.distance.data * 1000, nextpoint_form.bearing.data)
     return jsonify(job_url=url_for("v01.nextpoint_check", job_id=rq_job.id),
                    job_status=rq_job.get_status(),

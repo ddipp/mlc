@@ -2,6 +2,9 @@ from lib import GeoPoint
 
 
 def distance(la_a: float, lo_a: float, la_b: float, lo_b: float):
+    """
+    Calculation distance (along the line of sight and along the surface of the sphere), azimuths, and heights of geographical points.
+    """
     p_a = GeoPoint(la_a, lo_a)
     p_b = GeoPoint(la_b, lo_b)
     distance = p_a.distance_to(p_b) / 1000
@@ -18,6 +21,9 @@ def distance(la_a: float, lo_a: float, la_b: float, lo_b: float):
 
 
 def nextpoint(la_a: float, lo_a: float, distance: float, bearing: float):
+    """
+    Calculation of the height and coordinates of a geographic point based on a given first point, azimuth and distance.
+    """
     p_a = GeoPoint(la_a, lo_a)
     p_b = p_a.nextpoint(bearing, distance)
     return {'b_latitude': p_b.latitude,
