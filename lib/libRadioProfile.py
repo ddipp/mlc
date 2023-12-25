@@ -19,6 +19,12 @@ class RadioProfile:
         # List for relief
         self.relief = list()
 
+    def set_radio_parameters(self, tx_power, receiver_sensitivity, antenna_gain_a, antenna_gain_b):
+        self.tx_power = tx_power
+        self.receiver_sensitivity = receiver_sensitivity
+        self.antenna_gain_a = antenna_gain_a
+        self.antenna_gain_b = antenna_gain_b
+
     def arc_height(self, distance: int) -> float:
         """ The height of the planet's arc at a given distance (in meters) from the start of the path
         """
@@ -91,7 +97,7 @@ class RadioProfile:
         return True
 
     @property
-    def visibility_in_fresnel_zone(self) -> bool:
+    def visibility_in_0_6_fresnel_zone(self) -> bool:
         """ the presence of visibility in the 60% fresnel zones.
             If there are obstacles on the way between points (considering antenna heights),
             then False is returned, otherwise True.
@@ -109,5 +115,21 @@ class RadioProfile:
             # Compare line of sight height and surface height + planet curvature
             if los_height - frenzel_zone < elevation + arc_height:
                 return False
-
         return True
+
+    @property
+    def free_space_loss(self):
+        """ Calculating free space loss
+            ref: HANDBOOK – DIGITAL RADIO-RELAY SYSTEMS (R-HDB-24-1996-PDF-E.pdf)
+            formula (4.1.1-1)
+        """
+        return 92.44 + 20 * m.log10(self.frequency) + 20 * m.log10(self.length / 1000)
+
+    @property
+    def expected_signal_strength(self):
+        if self.line_of_sight is False or self.visibility_in_0_6_fresnel_zone is False:
+            ess = None
+        else:
+            ess = self.tx_power + self.antenna_gain_a + self.antenna_gain_b - self.free_space_loss
+            ess = round(ess, 2)
+        return ess
