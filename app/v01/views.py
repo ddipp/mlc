@@ -2,7 +2,7 @@ from rq.job import Job
 
 from flask import current_app, Blueprint, render_template, url_for, jsonify
 
-from .forms import DistanceForm, NextPointForm
+from .forms import DistanceForm, NextPointForm, ProfileForm
 
 
 v01 = Blueprint('v01', __name__)
@@ -12,13 +12,39 @@ v01 = Blueprint('v01', __name__)
 def index():
     return render_template('index.html', title="Home")
 
+###########
+# Profile #
+###########
+
+
+@v01.route('profile', methods=['GET'])
+def profile():
+    profile_form = ProfileForm(url=url_for("v01.profile_calc"))
+    return render_template('profile.html', title="Profile",
+                           profile_form=profile_form)
+
+
+@v01.route('profile_calc', methods=['POST'])
+def profile_calc():
+    profile_form = ProfileForm()
+    if profile_form.validate_on_submit():
+        rq_job = current_app.task_queue.enqueue('app.v01.tasks.distance',
+                                                profile_form.latitude_a.data, profile_form.longitude_a.data,
+                                                profile_form.latitude_b.data, profile_form.longitude_b.data)
+    return jsonify(job_url=url_for("v01.distance_check", job_id=rq_job.id),
+                   job_status=rq_job.get_status(),
+                   job_result=rq_job.result)
+
+############
+# Distance #
+############
+
 
 @v01.route('distance', methods=['GET'])
 def distance():
-    answer = {}
     distance_form = DistanceForm(url=url_for("v01.distance_calc"))
     return render_template('distance.html', title="Distance",
-                           distance_form=distance_form, answer=answer)
+                           distance_form=distance_form)
 
 
 @v01.route('distance_calc', methods=['POST'])
@@ -51,6 +77,11 @@ def distance_check(job_id):
     except Exception:
         job_status = None
         return jsonify(job_status=job_status)
+
+
+##############
+# Next point #
+##############
 
 
 @v01.route('nextpoint', methods=['GET'])
