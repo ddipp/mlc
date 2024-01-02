@@ -20,7 +20,7 @@
               {{ profile_form.latitude_a.label }} {{ profile_form.latitude_a(size=10) }}
               {{ profile_form.longitude_a.label }} {{ profile_form.longitude_a(size=10) }}
               {{ profile_form.height_a.label }} {{ profile_form.height_a(size=4) }}
-              {{ profile_form.antenna_gain_a.label }} {{ profile_form.antenna_gain_a(size=4) }}
+              {{ profile_form.antenna_gain_a.label }} {{ profile_form.antenna_gain_a(size=5) }}
             </fieldset>
           </div>
           <div class="row">
@@ -29,7 +29,7 @@
               {{ profile_form.latitude_b.label }} {{ profile_form.latitude_b(size=10) }}
               {{ profile_form.longitude_b.label }} {{ profile_form.longitude_b(size=10) }}
               {{ profile_form.height_b.label }} {{ profile_form.height_b(size=4) }}
-              {{ profile_form.antenna_gain_b.label }} {{ profile_form.antenna_gain_b(size=4) }}
+              {{ profile_form.antenna_gain_b.label }} {{ profile_form.antenna_gain_b(size=5) }}
             </fieldset>
           </div>
           <input type="submit" value="Go" class="bordered">
@@ -42,9 +42,6 @@
         Distance between two points in a straight line <span id="distance"></span> km
       </li>
       <li>
-        Distance between two points on the surface of the planet <span id="arc_distance"></span> km
-      </li>
-      <li>
         Cource from Point A to Point B <span id="az_a_b"></span>°
       </li>
       <li>
@@ -54,7 +51,19 @@
         Point A. Altitude <span id="a_elevation"></span> m
       </li>
       <li>
+        Point A. Antenna height <span id="a_height"></span> m
+      </li>
+      <li>
         Point B. Altitude <span id="b_elevation"></span> m
+      </li>
+      <li>
+        Point B. Antenna height <span id="b_height"></span> m
+      </li>
+      <li>
+        Visibility between antennas - <span id="line_of_sight"></span>
+      </li>
+      <li>
+        Visibility between antennas in the fresnel zone - <span id="visibility_in_0_6_fresnel_zone"></span>
       </li>
     </ul>
     <hr/>

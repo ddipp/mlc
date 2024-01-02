@@ -28,12 +28,40 @@ def profile():
 def profile_calc():
     profile_form = ProfileForm()
     if profile_form.validate_on_submit():
-        rq_job = current_app.task_queue.enqueue('app.v01.tasks.distance',
-                                                profile_form.latitude_a.data, profile_form.longitude_a.data,
-                                                profile_form.latitude_b.data, profile_form.longitude_b.data)
-    return jsonify(job_url=url_for("v01.distance_check", job_id=rq_job.id),
+        rq_job = current_app.task_queue.enqueue('app.v01.tasks.profile',
+                                                profile_form.tx_power.data, profile_form.frequency.data,
+                                                profile_form.receiver_sensitivity.data,
+                                                profile_form.antenna_gain_a.data, profile_form.latitude_a.data,
+                                                profile_form.longitude_a.data, profile_form.height_a.data,
+                                                profile_form.antenna_gain_b.data, profile_form.latitude_b.data,
+                                                profile_form.longitude_b.data, profile_form.height_b.data)
+    return jsonify(job_url=url_for("v01.profile_check", job_id=rq_job.id),
                    job_status=rq_job.get_status(),
                    job_result=rq_job.result)
+
+
+@v01.route('profile_check/<string:job_id>', methods=['GET'])
+def profile_check(job_id):
+    try:
+        job = Job.fetch(job_id, connection=current_app.redis)
+        job_status = job.get_status()
+        job_result = job.result
+        return jsonify(job_status=job_status,
+                       result={"distance": "{:.3f}".format(job_result['distance']),
+                               "az_a_b": "{:.3f}".format(job_result['az_a_b']),
+                               "az_b_a": "{:.3f}".format(job_result['az_b_a']),
+                               "a_elevation": job_result['a_elevation'],
+                               "b_elevation": job_result['b_elevation'],
+                               'a_height': job_result['a_height'],
+                               'b_height': job_result['b_height'],
+                               'line_of_sight': job_result['line_of_sight'],
+                               'visibility_in_0_6_fresnel_zone': job_result['visibility_in_0_6_fresnel_zone']
+                               }
+                       )
+    except Exception:
+        job_status = None
+        return jsonify(job_status=job_status)
+
 
 ############
 # Distance #

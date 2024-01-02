@@ -6,7 +6,7 @@ class ProfileForm(FlaskForm):
     url = HiddenField()
     tx_power = IntegerField("Tx power (dBm)", [validators.InputRequired(), validators.NumberRange(min=-10, max=50)])
     frequency = IntegerField("Frequency (GHz)", [validators.InputRequired(), validators.NumberRange(min=3, max=90)])
-    receiver_sensitivity = IntegerField("Receiver sensitivity (dBm)", [validators.InputRequired(), validators.NumberRange(min=-100, max=0)])
+    receiver_sensitivity = DecimalField("Receiver sensitivity (dBm)", [validators.InputRequired(), validators.NumberRange(min=-100, max=0)])
     antenna_gain_a = DecimalField("Antenna gain (dB)", [validators.InputRequired(), validators.NumberRange(min=0, max=90)])
     latitude_a = DecimalField("Latitude", [validators.InputRequired(), validators.NumberRange(min=-90, max=90)])
     longitude_a = DecimalField("Longitude", [validators.InputRequired(), validators.NumberRange(min=-180, max=180)])
