@@ -10,7 +10,7 @@ def profile(tx_power: int, frequency: int, receiver_sensitivity: float,
     p_b.h = height_b
     radio_profile = RadioProfile(p_a, p_a.h, p_b, p_b.h, frequency)
     radio_profile.set_radio_parameters(tx_power=tx_power, receiver_sensitivity=receiver_sensitivity,
-                                       antenna_gain_a=antenna_gain_a, antenna_gain_b=antenna_gain_b)
+                                       antenna_gain_a=float(antenna_gain_a), antenna_gain_b=float(antenna_gain_b))
     return {'distance': radio_profile.length / 1000,
             'az_a_b': p_a.azimuth(p_b),
             'az_b_a': p_b.azimuth(p_a),
@@ -19,7 +19,8 @@ def profile(tx_power: int, frequency: int, receiver_sensitivity: float,
             'a_height': p_a.h,
             'b_height': p_b.h,
             'line_of_sight': radio_profile.line_of_sight,
-            'visibility_in_0_6_fresnel_zone': radio_profile.visibility_in_0_6_fresnel_zone
+            'visibility_in_0_6_fresnel_zone': radio_profile.visibility_in_0_6_fresnel_zone,
+            'expected_signal_strength': radio_profile.expected_signal_strength,
             }
 
 

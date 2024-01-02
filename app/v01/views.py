@@ -55,7 +55,8 @@ def profile_check(job_id):
                                'a_height': job_result['a_height'],
                                'b_height': job_result['b_height'],
                                'line_of_sight': job_result['line_of_sight'],
-                               'visibility_in_0_6_fresnel_zone': job_result['visibility_in_0_6_fresnel_zone']
+                               'visibility_in_0_6_fresnel_zone': job_result['visibility_in_0_6_fresnel_zone'],
+                               'expected_signal_strength': job_result['expected_signal_strength'],
                                }
                        )
     except Exception:

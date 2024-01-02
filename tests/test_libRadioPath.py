@@ -55,5 +55,5 @@ def test_radio_path2():
     assert radiopath1.line_of_sight is True
     assert len(radiopath1.relief) == 107
     assert round(radiopath1.free_space_loss, 2) == 149.86
-    assert radiopath1.expected_signal_strength == -55.66
+    assert radiopath1.expected_signal_strength == -55.7
     assert round(radiopath1.frenzel_zone_size(1, radiopath1.length / 2), 3) == 13.873

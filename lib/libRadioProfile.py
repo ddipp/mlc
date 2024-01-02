@@ -131,5 +131,5 @@ class RadioProfile:
             ess = None
         else:
             ess = self.tx_power + self.antenna_gain_a + self.antenna_gain_b - self.free_space_loss
-            ess = round(ess, 2)
+            ess = round(ess, 1)
         return ess
