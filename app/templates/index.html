@@ -2,13 +2,20 @@
 {% block content %}
 <div class="row">
   <div class="col-sm">
-    <p>
-      On this site you can use the tools:
-      <ul>
-        <li>Calculate distance between geographic points</li>
-        <li>Calculate azimuths between points</li>
-      </ul>
-    </p>
+    <p>On this site you can use the tools:</p>
+    <dl>
+      <dt>Profile</dt>
+      <dd>Calculation of line of sight based on coordinates and antenna heights. Calculate visibility in the Fresnel zone for a given frequency.</dd>
+      <dt>Distance</dt>
+      <dd>Calculation of distance, azimuths between two points. The height of the earth's surface above sea level.</dd>
+      <dt>Next point</dt>
+      <dd>Calculating the coordinates of a point by azimuth and distance from a known point. The height of the earth's surface above sea level.</dd>
+    </dl>
+    <p>TODO:</p>
+    <ul>
+      <li>Building a profile for a radio channel</li>
+      <li>Search for an area on the map to install a radio tower</li>
+    </ul>
   </div>
 </div>
 {% endblock %}
