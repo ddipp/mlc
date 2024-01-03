@@ -23,7 +23,7 @@ app.task_queue = rq.Queue('default', connection=app.redis)
 
 from app.v01.views import v01  # noqa
 
-app.register_blueprint(v01, url_prefix='/mlc/api/v01')
+app.register_blueprint(v01, url_prefix='/mlc/')
 
 
 @app.route('/')
