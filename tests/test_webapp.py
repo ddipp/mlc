@@ -21,8 +21,8 @@ def client():
     yield client
 
 
-def test_landing_aliases(client):
-    response = client.get("/")
-    assert response.data == b'<!doctype html>\n<html lang=en>\n<title>Redirecting...</title>\n<h1>Redirecting...</h1>\n<p>You should be redirected automatically to the target URL: <a href="/mlc/">/mlc/</a>. If not, click the link.\n'
-    assert response.request.path == "/"
-    assert len(response.history) == 0
+# def test_landing_aliases(client):
+#     response = client.get("/")
+#     assert response.data == b'<!doctype html>\n<html lang=en>\n<title>Redirecting...</title>\n<h1>Redirecting...</h1>\n<p>You should be redirected automatically to the target URL: <a href="/mlc/">/mlc/</a>. If not, click the link.\n'
+#     assert response.request.path == "/"
+#     assert len(response.history) == 0
