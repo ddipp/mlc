@@ -1,6 +1,6 @@
 from rq.job import Job
 
-from flask import current_app, Blueprint, render_template, url_for, jsonify
+from flask import current_app, Blueprint, render_template, url_for, jsonify, send_file
 
 from .forms import DistanceForm, NextPointForm, ProfileForm
 
@@ -20,7 +20,7 @@ def index():
 @v01.route('profile', methods=['GET'])
 def profile():
     profile_form = ProfileForm(url=url_for("v01.profile_calc"))
-    return render_template('profile.html', title="Profile",
+    return render_template('profile.html', title="Pr",
                            profile_form=profile_form)
 
 
@@ -28,13 +28,14 @@ def profile():
 def profile_calc():
     profile_form = ProfileForm()
     if profile_form.validate_on_submit():
-        rq_job = current_app.task_queue.enqueue('app.v01.tasks.profile',
+        rq_job = current_app.task_queue.enqueue('app.v01.tasks.radio_profile_graph',
                                                 profile_form.tx_power.data, profile_form.frequency.data,
                                                 profile_form.receiver_sensitivity.data,
                                                 profile_form.antenna_gain_a.data, profile_form.latitude_a.data,
                                                 profile_form.longitude_a.data, profile_form.height_a.data,
                                                 profile_form.antenna_gain_b.data, profile_form.latitude_b.data,
-                                                profile_form.longitude_b.data, profile_form.height_b.data)
+                                                profile_form.longitude_b.data, profile_form.height_b.data,
+                                                current_app.config['CACHE_DIR_PROFILE'])
     return jsonify(job_url=url_for("v01.profile_check", job_id=rq_job.id),
                    job_status=rq_job.get_status(),
                    job_result=rq_job.result)
@@ -57,11 +58,17 @@ def profile_check(job_id):
                                'line_of_sight': job_result['line_of_sight'],
                                'visibility_in_0_6_fresnel_zone': job_result['visibility_in_0_6_fresnel_zone'],
                                'expected_signal_strength': job_result['expected_signal_strength'],
+                               'filename': url_for("v01.profile_get", filename=job_result['filename']),
                                }
                        )
     except Exception:
         job_status = None
         return jsonify(job_status=job_status)
+
+
+@v01.route('/profile_get/<string:filename>')
+def profile_get(filename):
+    return send_file(current_app.config['CACHE_DIR_PROFILE'] / filename, mimetype='image/png')
 
 
 ############

@@ -72,3 +72,17 @@ def test_unpack_zip():
     assert os.path.exists("data/cache/N00E072.hgt")
     if os.path.exists("data/cache/N00E072.hgt"):
         os.remove("data/cache/N00E072.hgt")
+    if os.path.exists("data/cache/N01E030.hgt"):
+        os.remove("data/cache/N01E030.hgt")
+    if os.path.exists("data/cache/N01E031.hgt"):
+        os.remove("data/cache/N01E031.hgt")
+    if os.path.exists("data/cache/N43W003.hgt"):
+        os.remove("data/cache/N43W003.hgt")
+    if os.path.exists("data/cache/N52W007.hgt"):
+        os.remove("data/cache/N52W007.hgt")
+    if os.path.exists("data/cache/S04W080.hgt"):
+        os.remove("data/cache/S04W080.hgt")
+    if os.path.exists("data/cache/S05E029.hgt"):
+        os.remove("data/cache/S05E029.hgt")
+    if os.path.exists("data/cache/S06E029.hgt"):
+        os.remove("data/cache/S06E029.hgt")
