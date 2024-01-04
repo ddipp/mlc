@@ -1,24 +1,24 @@
-import pytest
+# import pytest
 
-from app import app
+# from app import app
 
 
-@pytest.fixture
-def client():
-    """Configures the app for testing
+# @pytest.fixture
+# def client():
+#     """Configures the app for testing
 
-    Sets app config variable ``TESTING`` to ``True``
+#     Sets app config variable ``TESTING`` to ``True``
 
-    :return: App for testing
-    """
-    app.config.update({
-        "TESTING": True,
-    })
+#     :return: App for testing
+#     """
+#     app.config.update({
+#         "TESTING": True,
+#     })
 
-    # app.config['TESTING'] = True
-    client = app.test_client()
+#     # app.config['TESTING'] = True
+#     client = app.test_client()
 
-    yield client
+#     yield client
 
 
 # def test_landing_aliases(client):
