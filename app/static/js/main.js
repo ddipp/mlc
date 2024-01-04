@@ -13,7 +13,10 @@ function check_task(task_url) {
         for (var key in data['result']){
           var value = data['result'][key];
           $('#' + key).text(value);
-        }
+        };
+        if (data['result'].hasOwnProperty("filename")) {
+          $('#image').prepend('<img id="theImg" src="' + data['result']['filename'] + '" />');
+        };
         clearInterval(nIntervId);
       }
     },
@@ -26,6 +29,7 @@ $(document).ready(function () {
     event.preventDefault();
     const form_data = new FormData(this);
     $("#answer").hide();
+    $("#image").empty();
     $.ajax({
       type: "POST",
       url: form_data.get("url"),

@@ -133,3 +133,36 @@ class RadioProfile:
             ess = self.tx_power + self.antenna_gain_a + self.antenna_gain_b - self.free_space_loss
             ess = round(ess, 1)
         return ess
+
+    def get_chart_data(self):
+        """ Chart data.
+            Returns a list of data points:
+            - distance from starting point
+            - relief height
+            - the height of the relief, taking into account the curvature of the planet
+            - line of sight height
+            - height of the first fresnel zone
+            - height 60% of the first Fresnel zone
+        """
+        chart_data = {'distance': [], 'relief': [], 'relief_arc': [], 'los_height': [],
+                      'frenzel_zone_1_top': [], 'frenzel_zone_1_bottom': [],
+                      'frenzel_zone_1_60_top': [], 'frenzel_zone_1_60_bottom': []}
+        # checking the availability of terrain data. If not, then we calculate.
+        if len(self.relief) == 0:
+            self.get_relief()
+
+        for point in self.relief:
+            distance = point[0]
+            elevation = point[1]
+            arc_height = self.arc_height(distance)
+            los_height = self.los_height(distance)
+            frenzel_zone_1 = self.frenzel_zone_size(1, distance)
+            chart_data['distance'].append(distance)
+            chart_data['relief'].append(elevation)
+            chart_data['relief_arc'].append(elevation + arc_height)
+            chart_data['los_height'].append(los_height)
+            chart_data['frenzel_zone_1_top'].append(los_height + frenzel_zone_1)
+            chart_data['frenzel_zone_1_bottom'].append(los_height - frenzel_zone_1)
+            chart_data['frenzel_zone_1_60_top'].append(los_height + frenzel_zone_1 * 0.6)
+            chart_data['frenzel_zone_1_60_bottom'].append(los_height - frenzel_zone_1 * 0.6)
+        return chart_data
