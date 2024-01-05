@@ -20,7 +20,7 @@ def index():
 @v01.route('profile', methods=['GET'])
 def profile():
     profile_form = ProfileForm(url=url_for("v01.profile_calc"))
-    return render_template('profile.html', title="Pr",
+    return render_template('profile.html', title="Profile",
                            profile_form=profile_form)
 
 
