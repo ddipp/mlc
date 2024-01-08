@@ -15,7 +15,7 @@ function check_task(task_url) {
           $('#' + key).text(value);
         };
         if (data['result'].hasOwnProperty("filename")) {
-          $('#image').prepend('<img id="theImg" src="' + data['result']['filename'] + '" />');
+          $('#image').prepend('<img class="pure-img" src="' + data['result']['filename'] + '" />');
         };
         clearInterval(nIntervId);
       }

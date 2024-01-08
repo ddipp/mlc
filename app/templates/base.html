@@ -8,7 +8,11 @@
   <meta name="keywords" content="Radio, Frequency, Profile, Antenna">
   <meta name="description" content="Altitude graph on radio channel. Calculation of line of sight based on coordinates and antenna heights. Calculate visibility in the Fresnel zone for a given frequency.">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
+
+
+  <link rel="stylesheet" href="{{url_for('static', filename='css/pure-min.css')}}" />
+  <link rel="stylesheet" href="{{url_for('static', filename='css/grids-responsive-min.css')}}" />
+  <link rel="stylesheet" href="{{url_for('static', filename='css/side-menu.css')}}" />
   <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" defer></script>
   <script src="{{url_for('static', filename='js/main.js')}}" defer></script> 
@@ -20,21 +24,37 @@
   </title>
 </head>
 <body>
-  <div class="container">
-    <header class="sticky">
-      <a href="#" class="logo">MLC</a>
-      <a href="{{url_for('v01.index')}}" class="button {% if request.path == url_for('v01.index') %}active{% endif %}">Home</a>
-      <a href="{{url_for('v01.profile')}}" class="button {% if request.path == url_for('v01.profile') %}active{% endif %}">Profile</a>
-      <a href="{{url_for('v01.distance')}}" class="button {% if request.path == url_for('v01.distance') %}active{% endif %}">Distance</a>
-      <a href="{{url_for('v01.nextpoint')}}" class="button {% if request.path == url_for('v01.nextpoint') %}active{% endif %}">Next point</a>
-    </header>
-    <main class="container">
+  <div id="layout">
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+      <div class="pure-menu">
+        <a class="pure-menu-heading" href="#">MLC</a>
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item {% if request.path == url_for('v01.index') %}pure-menu-selected{% endif %}">
+            <a href="{{url_for('v01.index')}}" class="pure-menu-link">Home</a>
+          </li>
+          <li class="pure-menu-item {% if request.path == url_for('v01.profile') %}pure-menu-selected{% endif %}">
+            <a href="{{url_for('v01.profile')}}" class="pure-menu-link">Profile</a>
+          </li>
+          <li class="pure-menu-item {% if request.path == url_for('v01.distance') %}pure-menu-selected{% endif %}">
+            <a href="{{url_for('v01.distance')}}" class="pure-menu-link">Distance</a>
+          </li>
+          <li class="pure-menu-item {% if request.path == url_for('v01.nextpoint') %}pure-menu-selected{% endif %}">
+            <a href="{{url_for('v01.nextpoint')}}" class="pure-menu-link">Next point</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="main" class="grids">
+      <div class="header">
+        <h1>{% if title %}{{ title }}{% endif %}</h1>
+      </div>
       {% block content %}{% endblock %}
-    </main>
-    <footer class="sticky">
-      {% block footer %}
-      {% endblock %}
-    </footer>
-  </div>
+    </div>
+  <script src="{{url_for('static', filename='js/ui.js')}}"></script>
 </body>
 </html>

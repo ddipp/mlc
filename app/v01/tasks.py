@@ -19,7 +19,7 @@ def radio_profile_graph(tx_power: int, frequency: int, receiver_sensitivity: flo
     ax = fig.add_subplot()
 
     ax.grid(True)
-    ax.annotate(f'Antenna gain {radio_profile.antenna_gain_a:.1f} dBm\nHeight {height_a}m',
+    ax.annotate(f'Antenna gain {radio_profile.antenna_gain_a:.1f} dBm\nHeight {height_a} m',
                 xy=(0, profile_chart['los_height'][0]), xycoords='data',
                 xytext=(0.1, 0.5), textcoords='axes fraction',
                 horizontalalignment='left',
@@ -28,7 +28,7 @@ def radio_profile_graph(tx_power: int, frequency: int, receiver_sensitivity: flo
                                 connectionstyle="arc3,rad=0.3"),
                 bbox=dict(boxstyle="round", fc="1", alpha=0.5))
 
-    ax.annotate(f'Antenna gain {radio_profile.antenna_gain_b:.1f} dBm\nHeight {height_b}m',
+    ax.annotate(f'Antenna gain {radio_profile.antenna_gain_b:.1f} dBm\nHeight {height_b} m',
                 xy=(profile_chart['distance'][-1], profile_chart['los_height'][-1]), xycoords='data',
                 xytext=(0.9, 0.5), textcoords='axes fraction',
                 horizontalalignment='right',
