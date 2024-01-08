@@ -6,7 +6,8 @@ from lib import GeoPoint, RadioProfile
 def radio_profile_graph(tx_power: int, frequency: int, receiver_sensitivity: float,
                         antenna_gain_a: float, latitude_a: float, longitude_a: float, height_a: int,
                         antenna_gain_b: float, latitude_b: float, longitude_b: float, height_b: int, cache_dir: str) -> dict:
-    filename = "{0}_{1}_{2}_{3}_{4}_{5}_{6}.png".format(latitude_a, longitude_a, height_a, latitude_b, longitude_b, height_b, frequency)
+    filename = "{0}_{1}_{2}_{3}_{4}_{5}_{6}_{7}_{8}.png".format(latitude_a, longitude_a, height_a, antenna_gain_a,
+                                                                latitude_b, longitude_b, height_b, antenna_gain_b, frequency)
     p_a = GeoPoint(latitude_a, longitude_a)
     p_b = GeoPoint(latitude_b, longitude_b)
 
