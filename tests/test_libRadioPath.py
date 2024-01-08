@@ -86,3 +86,18 @@ def test_radio_path3():
     assert round(radiopath1.free_space_loss, 2) == 156.38
     assert radiopath1.expected_signal_strength is None
     assert round(radiopath1.frenzel_zone_size(1, radiopath1.length / 2), 3) == 9.533
+
+
+def test_radio_path4():
+    p1 = GeoPoint(1.870837, 30.876211, name='Point1')
+    p2 = GeoPoint(1.870678, 30.876938, name='Point2')
+    radiopath1 = RadioProfile(startpoint=p1, startheight=20, stoppoint=p2, stopheight=20, frequency=17)
+    radiopath1.set_radio_parameters(tx_power=18, receiver_sensitivity=-65, antenna_gain_a=38.1, antenna_gain_b=38.1)
+    assert radiopath1.get_chart_data() == {
+        'distance': [0, 10, 90, 91.44911202645781],
+        'relief': [674, 635, 635, 635],
+        'relief_arc': [674.0, 635.0000639215851, 635.0000102356869, 635.0],
+        'los_height': [694.0, 689.7353331119589, 655.6179980076297, 655.0],
+        'frenzel_zone_1_60_top': [694.0, 689.972850115739, 655.6971703422231, 655.0],
+        'frenzel_zone_1_60_bottom': [694.0, 689.4978161081788, 655.5388256730363, 655.0]
+    }
