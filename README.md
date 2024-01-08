@@ -9,8 +9,10 @@ from lib.srtm import srtm
 assert srtm.get_elevation_point(1.079952, 31.121195) == 1090
 assert srtm.get_elevation_point(1.151424, 30.447990) == 622
 assert srtm.get_elevation_point(1.018542, 30.656552) == 1202
-assert srtm.get_elevation_point(67.579852, 10.776552) is None  # open ocean. There is no SRTM file for these coordinates
-assert srtm.get_elevation_point(-3.00001, -79.99999) == 0  # For coastal waters, returns 0
+# open ocean. There is no SRTM file for these coordinates
+assert srtm.get_elevation_point(67.579852, 10.776552) is None
+# For coastal waters, returns 0
+assert srtm.get_elevation_point(-3.00001, -79.99999) == 0
 ```
 ## GeoPoint class
 The essence of a geographic point.
@@ -63,9 +65,12 @@ radiopath1.set_radio_parameters(tx_power=18, receiver_sensitivity=-65, antenna_g
 assert int(radiopath1.length) == 43726
 assert radiopath1.startpoint.elevation == 660
 assert radiopath1.stoppoint.elevation == 624
-# the presence of visibility in the 60% fresnel zones. If there are obstacles on the way between points (considering antennas heights), then False is returned, otherwise True.
+# the presence of visibility in the 60% fresnel zones.
+# If there are obstacles on the way between points (considering antennas heights),
+# then False is returned, otherwise True.
 assert radiopath1.visibility_in_0_6_fresnel_zone is True
-# if there are obstacles on the way between points (considering antennas heights), then False is returned, otherwise True.
+# if there are obstacles on the way between points (considering antennas heights),
+# then False is returned, otherwise True.
 assert radiopath1.line_of_sight is True
 assert round(radiopath1.free_space_loss, 2) == 149.86
 assert radiopath1.expected_signal_strength == -55.7
