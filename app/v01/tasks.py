@@ -50,11 +50,11 @@ def radio_profile_graph(tx_power: int, frequency: int, receiver_sensitivity: flo
     ax.plot(profile_chart['distance'], profile_chart['los_height'], color='darkred', label="Line of sight", linewidth=0.5)
 
     ax.plot(profile_chart['distance'], profile_chart['frenzel_zone_1_60_top'],
-            label="60% 1 Frenzel zone", color='red', linewidth=0.15, alpha=.15)
-    ax.plot(profile_chart['distance'], profile_chart['frenzel_zone_1_60_bottom'], color='red', linewidth=0.15, alpha=.15)
+            label="60% 1 Frenzel zone", color='red', linewidth=0.8, alpha=.8)
+    ax.plot(profile_chart['distance'], profile_chart['frenzel_zone_1_60_bottom'], color='red', linewidth=0.8, alpha=.8)
 
-    ax.plot(profile_chart['distance'], profile_chart['frenzel_zone_1_top'], label="1 Frenzel zone", color='lightcoral', linewidth=0.5)
-    ax.plot(profile_chart['distance'], profile_chart['frenzel_zone_1_bottom'], color='lightcoral', linewidth=0.5)
+    # ax.plot(profile_chart['distance'], profile_chart['frenzel_zone_1_top'], label="1 Frenzel zone", color='lightcoral', linewidth=0.5)
+    # ax.plot(profile_chart['distance'], profile_chart['frenzel_zone_1_bottom'], color='lightcoral', linewidth=0.5)
 
     ax.fill_between(profile_chart['distance'], profile_chart['frenzel_zone_1_60_top'],
                     profile_chart['frenzel_zone_1_60_bottom'], color='red', alpha=.15, linewidth=0)
@@ -84,29 +84,6 @@ def radio_profile_graph(tx_power: int, frequency: int, receiver_sensitivity: flo
             'visibility_in_0_6_fresnel_zone': radio_profile.visibility_in_0_6_fresnel_zone,
             'expected_signal_strength': radio_profile.expected_signal_strength,
             'filename': filename,
-            }
-
-
-def profile(tx_power: int, frequency: int, receiver_sensitivity: float,
-            antenna_gain_a: float, latitude_a: float, longitude_a: float, height_a: int,
-            antenna_gain_b: float, latitude_b: float, longitude_b: float, height_b: int) -> dict:
-    p_a = GeoPoint(latitude_a, longitude_a)
-    p_a.h = height_a
-    p_b = GeoPoint(latitude_b, longitude_b)
-    p_b.h = height_b
-    radio_profile = RadioProfile(p_a, p_a.h, p_b, p_b.h, frequency)
-    radio_profile.set_radio_parameters(tx_power=tx_power, receiver_sensitivity=receiver_sensitivity,
-                                       antenna_gain_a=float(antenna_gain_a), antenna_gain_b=float(antenna_gain_b))
-    return {'distance': radio_profile.length / 1000,
-            'az_a_b': p_a.azimuth(p_b),
-            'az_b_a': p_b.azimuth(p_a),
-            'a_elevation': p_a.elevation,
-            'b_elevation': p_b.elevation,
-            'a_height': p_a.h,
-            'b_height': p_b.h,
-            'line_of_sight': radio_profile.line_of_sight,
-            'visibility_in_0_6_fresnel_zone': radio_profile.visibility_in_0_6_fresnel_zone,
-            'expected_signal_strength': radio_profile.expected_signal_strength,
             }
 
 
