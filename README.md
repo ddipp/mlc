@@ -50,3 +50,18 @@ p6 = GeoPoint(54.9132538, 34.3426619)
 p7 = p6.nextpoint(azimuth=90, distance=500)
 assert (p7.latitude, p7.longitude) == (54.913253548816705, 34.350484580324036)
 ```
+## RadioProfile class
+```python3
+from lib import GeoPoint, RadioProfile
+p1 = GeoPoint(1.594837, 31.158936, name='Point1')
+p2 = GeoPoint(1.870223, 30.878149, name='Point2')
+radiopath1 = RadioProfile(startpoint=p1, startheight=40, stoppoint=p2, stopheight=40, frequency=17)
+radiopath1.set_radio_parameters(tx_power=18, receiver_sensitivity=-65, antenna_gain_a=38.1, antenna_gain_b=38.1)
+assert int(radiopath1.length) == 43726
+assert radiopath1.startpoint.elevation == 660
+assert radiopath1.stoppoint.elevation == 624
+assert radiopath1.visibility_in_0_6_fresnel_zone is True
+assert radiopath1.line_of_sight is True
+assert round(radiopath1.free_space_loss, 2) == 149.86
+assert radiopath1.expected_signal_strength == -55.7
+```
