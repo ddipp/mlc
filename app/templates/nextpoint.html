@@ -1,47 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row">
-  <div class="col-sm">
-    <form method="POST" id="form_1">
-      {{ nextpoint_form.hidden_tag() }}
-      <fieldset>
-        <legend class="doc">Find next point by distance and bearing</legend>
-          <fieldset>
-            <legend class="doc">Point</legend>
-            <div class="row">
-              {{ nextpoint_form.latitude.label }} {{ nextpoint_form.latitude(size=20) }}
-              {{ nextpoint_form.longitude.label }} {{ nextpoint_form.longitude(size=20) }}
-            </div>
-            <div class="row">
-              {{ nextpoint_form.distance.label }} {{ nextpoint_form.distance(size=20) }}
-              {{ nextpoint_form.bearing.label }} {{ nextpoint_form.bearing(size=20) }}
-            </div>
-          </fieldset>
-          <input type="submit" value="Go" class="bordered">
-      </fieldset>
-    </form>
-  </div>
-  <div class="col-sm" id="answer">
-    <ul>
-      <li>
-        Point A. Altitude <span id="a_elevation"></span> m
-      </li>
-      <li>
-        Point B
-        <ul>
-          <li>
-            Altitude <span id="b_elevation"></span> m
-          </li>
-          <li>
-            Latitude <span id="b_latitude"></span>
-          </li>
-          <li>
-            Longitude <span id="b_longitude"></span>
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <hr/>
-  </div>
+<div class="content">
+  <form class="pure-form pure-form-stacked" method="POST" id="form_1">
+    {{ nextpoint_form.hidden_tag() }}
+    <fieldset>
+      <legend>Point A</legend>
+      <div class="pure-g">
+        <div class="pure-u-1-2 pure-u-md-1-4">
+          {{ nextpoint_form.latitude.label }} {{ nextpoint_form.latitude(size=10) }}
+        </div>
+        <div class="pure-u-1-2 pure-u-md-1-4">
+          {{ nextpoint_form.longitude.label }} {{ nextpoint_form.longitude(size=10) }}
+        </div>
+        <div class="pure-u-1-2 pure-u-md-1-4">
+          {{ nextpoint_form.distance.label }} {{ nextpoint_form.distance(size=10) }}
+        </div>
+        <div class="pure-u-1-2 pure-u-md-1-4">
+          {{ nextpoint_form.bearing.label }} {{ nextpoint_form.bearing(size=10) }}
+        </div>
+      </div>
+    </fieldset>
+    <input type="submit" value="Go" class="pure-button">
+  </form>
+</div>
+
+<div class="content" id="answer">
+  <ul>
+    <li>
+      Point A. Altitude <span id="a_elevation"></span> m
+    </li>
+    <li>
+      Point B
+      <ul>
+        <li>
+          Altitude <span id="b_elevation"></span> m
+        </li>
+        <li>
+          Latitude <span id="b_latitude"></span>
+        </li>
+        <li>
+          Longitude <span id="b_longitude"></span>
+        </li>
+      </ul>
+    </li>
+  </ul>
 </div>
 {% endblock %}
