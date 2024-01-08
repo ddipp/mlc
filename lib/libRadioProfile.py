@@ -118,7 +118,7 @@ class RadioProfile:
         return True
 
     @property
-    def free_space_loss(self):
+    def free_space_loss(self) -> float:
         """ Calculating free space loss
             ref: HANDBOOK – DIGITAL RADIO-RELAY SYSTEMS (R-HDB-24-1996-PDF-E.pdf)
             formula (4.1.1-1)
@@ -126,7 +126,7 @@ class RadioProfile:
         return 92.44 + 20 * m.log10(self.frequency) + 20 * m.log10(self.length / 1000)
 
     @property
-    def expected_signal_strength(self):
+    def expected_signal_strength(self) -> float or None:
         if self.line_of_sight is False or self.visibility_in_0_6_fresnel_zone is False:
             ess = None
         else:
@@ -134,7 +134,7 @@ class RadioProfile:
             ess = round(ess, 1)
         return ess
 
-    def get_chart_data(self):
+    def get_chart_data(self) -> dict:
         """ Chart data.
             Returns a list of data points:
             - distance from starting point
@@ -145,7 +145,6 @@ class RadioProfile:
             - height 60% of the first Fresnel zone
         """
         chart_data = {'distance': [], 'relief': [], 'relief_arc': [], 'los_height': [],
-                      'frenzel_zone_1_top': [], 'frenzel_zone_1_bottom': [],
                       'frenzel_zone_1_60_top': [], 'frenzel_zone_1_60_bottom': []}
         # checking the availability of terrain data. If not, then we calculate.
         if len(self.relief) == 0:
@@ -161,8 +160,6 @@ class RadioProfile:
             chart_data['relief'].append(elevation)
             chart_data['relief_arc'].append(elevation + arc_height)
             chart_data['los_height'].append(los_height)
-            chart_data['frenzel_zone_1_top'].append(los_height + frenzel_zone_1)
-            chart_data['frenzel_zone_1_bottom'].append(los_height - frenzel_zone_1)
             chart_data['frenzel_zone_1_60_top'].append(los_height + frenzel_zone_1 * 0.6)
             chart_data['frenzel_zone_1_60_bottom'].append(los_height - frenzel_zone_1 * 0.6)
         return chart_data
