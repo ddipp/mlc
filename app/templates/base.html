@@ -46,6 +46,11 @@
           <li class="pure-menu-item {% if request.path == url_for('v01.nextpoint') %}pure-menu-selected{% endif %}">
             <a href="{{url_for('v01.nextpoint')}}" class="pure-menu-link">Next point</a>
           </li>
+          <hr/>
+          <div class="status-message">
+            <p>Server status: <span id="server_status"></span></p>
+            <p>Tsaks queue: <span id="task_queue"></span></p>
+          </div>
         </ul>
       </div>
     </div>

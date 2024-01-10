@@ -1,3 +1,7 @@
 .content-img {
   max-width: 98%;
 }
+.status-message {
+  color: #999;
+  font-size: 70%;
+}

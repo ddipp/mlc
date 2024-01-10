@@ -12,6 +12,17 @@ v01 = Blueprint('v01', __name__)
 def index():
     return render_template('index.html', title="Home")
 
+
+#################
+# Server Status #
+#################
+
+@v01.route('server_status', methods=['GET'])
+def server_status():
+    return jsonify(server_status="ok",
+                   task_queue=len(current_app.task_queue))
+
+
 ###########
 # Profile #
 ###########
