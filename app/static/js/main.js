@@ -79,5 +79,6 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+  server_status();
   server_status_IntervId = setInterval(server_status, 5000);
 });
