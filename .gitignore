@@ -9,6 +9,7 @@ requirements.dev.txt
 productionconfig.py
 data/cache/*
 !data/cache/.gitkeep
+app/templates/counters.html
 tmp/
 example.py
 test.py
