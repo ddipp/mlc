@@ -12,6 +12,15 @@ REDIS_DB = 3
 CSRF_ENABLED = True
 SECRET_KEY = 'a random string'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+# POSTGRES = {
+#     'user': 'username',
+#     'pw': 'password',
+#     'db': 'dbname',
+#     'host': 'hostname',
+#     'port': '5432',
+# }
 # SQLALCHEMY_ECHO = True
 # SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')

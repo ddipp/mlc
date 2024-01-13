@@ -5,19 +5,14 @@ from flask import current_app, Blueprint, render_template, url_for, jsonify, sen
 from .forms import DistanceForm, NextPointForm, ProfileForm
 
 
-v01 = Blueprint('v01', __name__)
-
-
-@v01.route('/', methods=['GET'])
-def index():
-    return render_template('index.html', title="Home")
+mlc = Blueprint('mlc', __name__, template_folder='templates')
 
 
 #################
 # Server Status #
 #################
 
-@v01.route('server_status', methods=['GET'])
+@mlc.route('server_status', methods=['GET'])
 def server_status():
     return jsonify(server_status="ok",
                    task_queue=len(current_app.task_queue))
@@ -28,18 +23,18 @@ def server_status():
 ###########
 
 
-@v01.route('profile', methods=['GET'])
+@mlc.route('profile', methods=['GET'])
 def profile():
-    profile_form = ProfileForm(url=url_for("v01.profile_calc"))
-    return render_template('profile.html', title="Profile",
+    profile_form = ProfileForm(url=url_for("mlc.profile_calc"))
+    return render_template('mlc.profile.html', title="Profile",
                            profile_form=profile_form)
 
 
-@v01.route('profile_calc', methods=['POST'])
+@mlc.route('profile_calc', methods=['POST'])
 def profile_calc():
     profile_form = ProfileForm()
     if profile_form.validate_on_submit():
-        rq_job = current_app.task_queue.enqueue('app.v01.tasks.radio_profile_graph',
+        rq_job = current_app.task_queue.enqueue('app.mlc.tasks.radio_profile_graph',
                                                 profile_form.tx_power.data, profile_form.frequency.data,
                                                 profile_form.receiver_sensitivity.data,
                                                 profile_form.antenna_gain_a.data, profile_form.latitude_a.data,
@@ -47,12 +42,12 @@ def profile_calc():
                                                 profile_form.antenna_gain_b.data, profile_form.latitude_b.data,
                                                 profile_form.longitude_b.data, profile_form.height_b.data,
                                                 current_app.config['CACHE_DIR_PROFILE'])
-    return jsonify(job_url=url_for("v01.profile_check", job_id=rq_job.id),
+    return jsonify(job_url=url_for("mlc.profile_check", job_id=rq_job.id),
                    job_status=rq_job.get_status(),
                    job_result=rq_job.result)
 
 
-@v01.route('profile_check/<string:job_id>', methods=['GET'])
+@mlc.route('profile_check/<string:job_id>', methods=['GET'])
 def profile_check(job_id):
     try:
         job = Job.fetch(job_id, connection=current_app.redis)
@@ -69,7 +64,7 @@ def profile_check(job_id):
                                'line_of_sight': job_result['line_of_sight'],
                                'visibility_in_0_6_fresnel_zone': job_result['visibility_in_0_6_fresnel_zone'],
                                'expected_signal_strength': job_result['expected_signal_strength'],
-                               'filename': url_for("v01.profile_get", filename=job_result['filename']),
+                               'filename': url_for("mlc.profile_get", filename=job_result['filename']),
                                }
                        )
     except Exception:
@@ -77,7 +72,7 @@ def profile_check(job_id):
         return jsonify(job_status=job_status)
 
 
-@v01.route('/profile_get/<string:filename>')
+@mlc.route('/profile_get/<string:filename>')
 def profile_get(filename):
     return send_file(current_app.config['CACHE_DIR_PROFILE'] / filename, mimetype='image/png')
 
@@ -87,26 +82,26 @@ def profile_get(filename):
 ############
 
 
-@v01.route('distance', methods=['GET'])
+@mlc.route('distance', methods=['GET'])
 def distance():
-    distance_form = DistanceForm(url=url_for("v01.distance_calc"))
-    return render_template('distance.html', title="Distance",
+    distance_form = DistanceForm(url=url_for("mlc.distance_calc"))
+    return render_template('mlc.distance.html', title="Distance",
                            distance_form=distance_form)
 
 
-@v01.route('distance_calc', methods=['POST'])
+@mlc.route('distance_calc', methods=['POST'])
 def distance_calc():
     distance_form = DistanceForm()
     if distance_form.validate_on_submit():
-        rq_job = current_app.task_queue.enqueue('app.v01.tasks.distance',
+        rq_job = current_app.task_queue.enqueue('app.mlc.tasks.distance',
                                                 distance_form.latitude_a.data, distance_form.longitude_a.data,
                                                 distance_form.latitude_b.data, distance_form.longitude_b.data)
-    return jsonify(job_url=url_for("v01.distance_check", job_id=rq_job.id),
+    return jsonify(job_url=url_for("mlc.distance_check", job_id=rq_job.id),
                    job_status=rq_job.get_status(),
                    job_result=rq_job.result)
 
 
-@v01.route('distance_check/<string:job_id>', methods=['GET'])
+@mlc.route('distance_check/<string:job_id>', methods=['GET'])
 def distance_check(job_id):
     try:
         job = Job.fetch(job_id, connection=current_app.redis)
@@ -131,27 +126,27 @@ def distance_check(job_id):
 ##############
 
 
-@v01.route('nextpoint', methods=['GET'])
+@mlc.route('nextpoint', methods=['GET'])
 def nextpoint():
     answer = {}
-    nextpoint_form = NextPointForm(url=url_for("v01.nextpoint_calc"))
-    return render_template('nextpoint.html', title="Next point",
+    nextpoint_form = NextPointForm(url=url_for("mlc.nextpoint_calc"))
+    return render_template('mlc.nextpoint.html', title="Next point",
                            nextpoint_form=nextpoint_form, answer=answer)
 
 
-@v01.route('nextpoint_calc', methods=['POST'])
+@mlc.route('nextpoint_calc', methods=['POST'])
 def nextpoint_calc():
     nextpoint_form = NextPointForm()
     if nextpoint_form.validate_on_submit():
-        rq_job = current_app.task_queue.enqueue('app.v01.tasks.nextpoint',
+        rq_job = current_app.task_queue.enqueue('app.mlc.tasks.nextpoint',
                                                 nextpoint_form.latitude.data, nextpoint_form.longitude.data,
                                                 nextpoint_form.distance.data * 1000, nextpoint_form.bearing.data)
-    return jsonify(job_url=url_for("v01.nextpoint_check", job_id=rq_job.id),
+    return jsonify(job_url=url_for("mlc.nextpoint_check", job_id=rq_job.id),
                    job_status=rq_job.get_status(),
                    job_result=rq_job.result)
 
 
-@v01.route('nextpoint_check/<string:job_id>', methods=['GET'])
+@mlc.route('nextpoint_check/<string:job_id>', methods=['GET'])
 def nextpoint_check(job_id):
     try:
         job = Job.fetch(job_id, connection=current_app.redis)

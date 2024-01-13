@@ -7,7 +7,7 @@ from .models import UserModel
 from app import login_manager
 
 
-auth = Blueprint('auth', __name__, url_prefix='/auth', template_folder='templates')
+auth = Blueprint('auth', __name__, template_folder='templates')
 
 
 @login_manager.user_loader

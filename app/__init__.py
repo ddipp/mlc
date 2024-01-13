@@ -5,7 +5,7 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-from flask import Flask, redirect, url_for
+from flask import Flask, render_template
 
 # from werkzeug.routing import FloatConverter as BaseFloatConverter
 
@@ -43,13 +43,13 @@ app.redis = redis.from_url('redis://{0}:{1}/{2}'.format(app.config['REDIS_HOST']
 app.task_queue = rq.Queue('default', connection=app.redis)
 
 
-from app.v01.views import v01  # noqa
+from app.mlc.views import mlc  # noqa
 from app.auth.views import auth  # noqa
 
-app.register_blueprint(v01, url_prefix='/mlc/')
+app.register_blueprint(mlc, url_prefix='/mlc/')
 app.register_blueprint(auth, url_prefix='/auth/')
 
 
 @app.route('/')
 def index():
-    return redirect(url_for('v01.index'))
+    return render_template('index.html', title="Home")
