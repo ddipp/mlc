@@ -49,8 +49,15 @@
           <hr/>
 
           {%- if not current_user.is_authenticated %}
+          <li class="pure-menu-item {% if request.path == url_for('auth.login') %}pure-menu-selected{% endif %}">
+            <a href="{{url_for('auth.login')}}" class="pure-menu-link">Login</a>
+          </li>
           <li class="pure-menu-item {% if request.path == url_for('auth.signup') %}pure-menu-selected{% endif %}">
             <a href="{{url_for('auth.signup')}}" class="pure-menu-link">Sign-up</a>
+          </li>
+          {%- else %}
+          <li class="pure-menu-item {% if request.path == url_for('auth.logout') %}pure-menu-selected{% endif %}">
+            <a href="{{url_for('auth.logout')}}" class="pure-menu-link">Logout</a>
           </li>
           {%- endif %}
 

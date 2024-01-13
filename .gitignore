@@ -3,6 +3,7 @@
 
 app/app.db
 init_venv.dev.sh
+init_db.sh
 .venv/
 migrations
 __pycache__

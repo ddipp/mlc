@@ -1,8 +1,8 @@
 from functools import wraps
-from flask import Blueprint, redirect, url_for, flash, render_template
-from flask_login import current_user, login_required, logout_user
+from flask import Blueprint, redirect, url_for, flash, render_template, request
+from flask_login import current_user, login_required, logout_user, login_user
 
-from .forms import RegisterForm
+from .forms import SignupForm, LoginForm
 from .models import UserModel
 from app import login_manager
 
@@ -38,7 +38,7 @@ def logout():
 @auth.route('/signup', methods=['POST', 'GET'])
 def signup():
     title = "Sign-up"
-    form = RegisterForm()
+    form = SignupForm()
     if form.validate_on_submit():
         user = UserModel.query.filter_by(email=form.email.data).first()  # if this returns a user, then the email already exists in database
 
@@ -58,3 +58,18 @@ def signup():
         return redirect(url_for('index'))
 
     return render_template('auth.signup.html', title=title, form=form)
+
+
+@auth.route('/login', methods=['GET', 'POST'])
+def login():
+    title = "Login"
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = UserModel.query.filter_by(email=form.email.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember.data)
+            nextp = request.args.get('next')
+            return redirect(nextp or url_for('index'))
+        else:
+            flash('Please check your login details and try again.')
+    return render_template('auth.login.html', title=title, form=form)

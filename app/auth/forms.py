@@ -32,6 +32,6 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember')
 
 
-class RegisterForm(FlaskForm):
+class SignupForm(FlaskForm):
     email = EmailField('Email', [validators.DataRequired()])
     password = PasswordField('Password', [validators.DataRequired()])
