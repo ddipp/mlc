@@ -5,7 +5,7 @@ var server_status_IntervId;
 function server_status() {
   $.ajax({
     type: "get",
-    url: "server_status",
+    url: "/mlc/server_status",
     processData: false,
     contentType: false,
     success:function(data){

@@ -47,6 +47,14 @@
             <a href="{{url_for('v01.nextpoint')}}" class="pure-menu-link">Next point</a>
           </li>
           <hr/>
+
+          {%- if not current_user.is_authenticated %}
+          <li class="pure-menu-item {% if request.path == url_for('auth.signup') %}pure-menu-selected{% endif %}">
+            <a href="{{url_for('auth.signup')}}" class="pure-menu-link">Sign-up</a>
+          </li>
+          {%- endif %}
+
+          <hr/>
           <div class="status-message">
             <p>Network status: <span id="server_status"></span></p>
             <p>Tsaks queue: <span id="task_queue"></span></p>
@@ -61,6 +69,6 @@
       {% block content %}{% endblock %}
     </div>
   <script src="{{url_for('static', filename='js/ui.js')}}"></script>
-  {% include 'counters.html' %}
+  {% include 'counters.html' ignore missing %}
 </body>
 </html>
