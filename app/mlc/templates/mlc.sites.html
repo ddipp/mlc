@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content">
+  <table class="pure-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Height</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%- for site in sites %}
+      <tr>
+        <td>{{ site.name }}</td>
+        <td>{{ site.height }}</td>
+        <td>{{ site.latitude }}</td>
+        <td>{{ site.longitude }}</td>
+      </tr>
+      {%- endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

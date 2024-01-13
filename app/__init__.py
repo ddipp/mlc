@@ -35,6 +35,7 @@ if app.config['SQLALCHEMY_DATABASE_URI'].startswith('sqlite'):
         cursor.close()
 
 migrate = Migrate(app, db)
+
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)

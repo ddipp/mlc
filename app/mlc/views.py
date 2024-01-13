@@ -1,16 +1,29 @@
 from rq.job import Job
 
 from flask import current_app, Blueprint, render_template, url_for, jsonify, send_file
+from flask_login import login_required, current_user
 
 from .forms import DistanceForm, NextPointForm, ProfileForm
-
+from .models import SiteModel
 
 mlc = Blueprint('mlc', __name__, template_folder='templates')
 
+############
+# My sites #
+############
+
+
+@mlc.route('sites', methods=['GET'])
+@login_required
+def sites():
+    sites = SiteModel.query.filter(SiteModel.user == current_user).order_by(SiteModel.dt.desc()).all()
+    return render_template('mlc.sites.html', title="Sites",
+                           sites=sites)
 
 #################
 # Server Status #
 #################
+
 
 @mlc.route('server_status', methods=['GET'])
 def server_status():

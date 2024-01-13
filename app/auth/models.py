@@ -5,7 +5,7 @@ from flask_login import UserMixin
 
 
 class RoleModel(db.Model):
-    __tablename__ = 'mlc_auth_roles'
+    __tablename__ = 'auth_roles'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
@@ -19,13 +19,13 @@ class RoleModel(db.Model):
 
 
 class UserModel(db.Model, UserMixin):
-    __tablename__ = 'mlc_auth_users'
+    __tablename__ = 'auth_users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
 #    name = db.Column(db.String(254), nullable=False)
     registered_on = db.Column(db.DateTime, default=datetime.utcnow)
 #    telegram_id = db.Column(db.Integer)  # id in Telegram
-    roles = db.relationship('RoleModel', secondary="mlc_auth_users_roles", backref=db.backref('users'))
+    roles = db.relationship('RoleModel', secondary="auth_users_roles", backref=db.backref('users'))
     password_hash = db.Column(db.String(256))
 
     def is_admin(self):
@@ -53,7 +53,7 @@ class UserModel(db.Model, UserMixin):
 
 
 class Auth_Roles_Users(db.Model):
-    __tablename__ = 'mlc_auth_users_roles'
+    __tablename__ = 'auth_users_roles'
     __table_args__ = (db.UniqueConstraint('user_id', 'role_id'),)
     user_id = db.Column(db.Integer, db.ForeignKey(UserModel.id, ondelete="CASCADE"), primary_key=True)
     role_id = db.Column(db.Integer, db.ForeignKey(RoleModel.id, ondelete="CASCADE"), primary_key=True)
