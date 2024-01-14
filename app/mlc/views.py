@@ -1,9 +1,11 @@
 from rq.job import Job
 
-from flask import current_app, Blueprint, render_template, url_for, jsonify, send_file
+from flask import current_app, Blueprint, render_template, url_for, jsonify, send_file, redirect
 from flask_login import login_required, current_user
 
-from .forms import DistanceForm, NextPointForm, ProfileForm
+from app import db
+
+from .forms import DistanceForm, NextPointForm, ProfileForm, SiteForm
 from .models import SiteModel
 
 mlc = Blueprint('mlc', __name__, template_folder='templates')
@@ -11,6 +13,31 @@ mlc = Blueprint('mlc', __name__, template_folder='templates')
 ############
 # My sites #
 ############
+
+
+@mlc.route('sites/add/', methods=['GET', 'POST'], defaults={'id': None})
+@mlc.route('sites/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def sites_edit(id):
+    if id is not None:
+        site = SiteModel.query.filter(SiteModel.id == id).filter(SiteModel.user == current_user).first()
+        form = SiteForm(obj=site)
+        title = "Edit site"
+    else:
+        site = None
+        form = SiteForm()
+        title = "New site"
+
+    if form.validate_on_submit():
+        if id is not None:
+            form.populate_obj(site)
+        else:
+            site = SiteModel(user=current_user, name=form.name.data, latitude=form.latitude.data,
+                             longitude=form.longitude.data, height=form.height.data)
+            db.session.add(site)
+        db.session.commit()
+        return redirect(url_for('mlc.sites'))
+    return render_template('mlc.sites.add.html', title=title, form=form)
 
 
 @mlc.route('sites', methods=['GET'])
