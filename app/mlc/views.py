@@ -32,8 +32,7 @@ def sites_edit(id):
         if id is not None:
             form.populate_obj(site)
         else:
-            site = SiteModel(user=current_user, name=form.name.data, latitude=form.latitude.data,
-                             longitude=form.longitude.data, height=form.height.data)
+            site = SiteModel(user=current_user, name=form.name.data, latitude=form.latitude.data, longitude=form.longitude.data)
             db.session.add(site)
         db.session.commit()
         return redirect(url_for('mlc.sites'))

@@ -5,7 +5,6 @@ from wtforms import IntegerField, DecimalField, HiddenField, StringField, valida
 class SiteForm(FlaskForm):
     latitude = DecimalField("Latitude", [validators.InputRequired(), validators.NumberRange(min=-90, max=90)], places=8)
     longitude = DecimalField("Longitude", [validators.InputRequired(), validators.NumberRange(min=-180, max=180)], places=8)
-    height = IntegerField("Height (m)", [validators.InputRequired(), validators.NumberRange(min=0, max=300)])
     name = StringField("Site name", [validators.InputRequired()])
 
 

@@ -4,6 +4,17 @@
   <form class="pure-form pure-form-stacked" method="POST">
     {{ form.hidden_tag() }}
       <div class="pure-g">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="pure-u-1-1">
+              <span class="alert-message">
+                {{ message }}
+              </span>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
         <div class="pure-u-1-1 pure-u-md-1-2">
           {{ form.name.label }} {{ form.name }}
         </div>
@@ -12,9 +23,6 @@
         </div>
         <div class="pure-u-1-2 pure-u-md-1-4">
           {{ form.longitude.label }} {{ form.longitude(size=13) }}
-        </div>
-        <div class="pure-u-1-2 pure-u-md-1-4">
-          {{ form.height.label }} {{ form.height(size=10) }}
         </div>
       </div>
     <input type="submit" value="Go" class="pure-button">
