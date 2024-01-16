@@ -17,7 +17,7 @@
         <td>{{ site.name }}</td>
         <td>{{ site.latitude }}</td>
         <td>{{ site.longitude }}</td>
-        <td>{{ site.elevation }}</td>
+        <td>{%- if not site.elevation == None %}{{ site.elevation }}{%- else %}Calculating..{%- endif %}</td>
         <td><a href="{{url_for('mlc.sites_edit', id=site.id)}}"><i class="demo-icon icon-edit"></i></a></td>
       </tr>
       {%- endfor %}

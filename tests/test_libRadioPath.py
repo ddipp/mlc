@@ -5,7 +5,7 @@ def test_radio_path1():
     p1 = GeoPoint(1.594837, 31.158936, name='Point1')
     p2 = GeoPoint(1.870223, 30.878149, name='Point2')
     radiopath1 = RadioProfile(startpoint=p1, startheight=20, stoppoint=p2, stopheight=20, frequency=17)
-    radiopath1.set_radio_parameters(tx_power=18, receiver_sensitivity=-65, antenna_gain_a=38.1, antenna_gain_b=38.1)
+    radiopath1.set_radio_parameters(tx_power=18, receiver_sensitivity=-65, antenna_a_gain=38.1, antenna_b_gain=38.1)
     assert radiopath1.startpoint == p1
     assert radiopath1.stoppoint == p2
     assert radiopath1.frequency == 17
@@ -34,7 +34,7 @@ def test_radio_path2():
     p1 = GeoPoint(1.594837, 31.158936, name='Point1')
     p2 = GeoPoint(1.870223, 30.878149, name='Point2')
     radiopath1 = RadioProfile(startpoint=p1, startheight=40, stoppoint=p2, stopheight=40, frequency=17)
-    radiopath1.set_radio_parameters(tx_power=18, receiver_sensitivity=-65, antenna_gain_a=38.1, antenna_gain_b=38.1)
+    radiopath1.set_radio_parameters(tx_power=18, receiver_sensitivity=-65, antenna_a_gain=38.1, antenna_b_gain=38.1)
     assert radiopath1.startpoint == p1
     assert radiopath1.stoppoint == p2
     assert radiopath1.frequency == 17
@@ -63,7 +63,7 @@ def test_radio_path3():
     p1 = GeoPoint(1.594837, 31.158936, name='Point1')
     p2 = GeoPoint(1.870223, 30.878149, name='Point2')
     radiopath1 = RadioProfile(startpoint=p1, startheight=10, stoppoint=p2, stopheight=10, frequency=36)
-    radiopath1.set_radio_parameters(tx_power=18, receiver_sensitivity=-65, antenna_gain_a=38.1, antenna_gain_b=38.1)
+    radiopath1.set_radio_parameters(tx_power=18, receiver_sensitivity=-65, antenna_a_gain=38.1, antenna_b_gain=38.1)
     assert radiopath1.startpoint == p1
     assert radiopath1.stoppoint == p2
     assert radiopath1.frequency == 36
@@ -92,7 +92,7 @@ def test_radio_path4():
     p1 = GeoPoint(1.870837, 30.876211, name='Point1')
     p2 = GeoPoint(1.870678, 30.876938, name='Point2')
     radiopath1 = RadioProfile(startpoint=p1, startheight=20, stoppoint=p2, stopheight=20, frequency=17)
-    radiopath1.set_radio_parameters(tx_power=18, receiver_sensitivity=-65, antenna_gain_a=38.1, antenna_gain_b=38.1)
+    radiopath1.set_radio_parameters(tx_power=18, receiver_sensitivity=-65, antenna_a_gain=38.1, antenna_b_gain=38.1)
     assert radiopath1.get_chart_data() == {
         'distance': [0, 10, 90, 91.44911202645781],
         'relief': [674, 635, 635, 635],

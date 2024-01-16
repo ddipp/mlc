@@ -22,9 +22,7 @@ class UserModel(db.Model, UserMixin):
     __tablename__ = 'auth_users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-#    name = db.Column(db.String(254), nullable=False)
     registered_on = db.Column(db.DateTime, default=datetime.utcnow)
-#    telegram_id = db.Column(db.Integer)  # id in Telegram
     roles = db.relationship('RoleModel', secondary="auth_users_roles", backref=db.backref('users'))
     password_hash = db.Column(db.String(256))
 

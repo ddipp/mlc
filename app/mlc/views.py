@@ -6,9 +6,22 @@ from flask_login import login_required, current_user
 from app import db
 
 from .forms import DistanceForm, NextPointForm, ProfileForm, SiteForm
-from .models import SiteModel
+from .models import SiteModel, LinkModel
 
 mlc = Blueprint('mlc', __name__, template_folder='templates')
+
+
+############
+# My links #
+############
+
+
+@mlc.route('links', methods=['GET'])
+@login_required
+def links():
+    links = LinkModel.query.filter(LinkModel.user == current_user).order_by(LinkModel.dt.desc()).all()
+    return render_template('mlc.links.html', title="Links", links=links)
+
 
 ############
 # My sites #
@@ -46,8 +59,7 @@ def sites_edit(id):
 @login_required
 def sites():
     sites = SiteModel.query.filter(SiteModel.user == current_user).order_by(SiteModel.dt.desc()).all()
-    return render_template('mlc.sites.html', title="Sites",
-                           sites=sites)
+    return render_template('mlc.sites.html', title="Sites", sites=sites)
 
 #################
 # Server Status #
@@ -79,10 +91,10 @@ def profile_calc():
         rq_job = current_app.task_queue.enqueue('app.mlc.tasks.radio_profile_graph',
                                                 profile_form.tx_power.data, profile_form.frequency.data,
                                                 profile_form.receiver_sensitivity.data,
-                                                profile_form.antenna_gain_a.data, profile_form.latitude_a.data,
-                                                profile_form.longitude_a.data, profile_form.height_a.data,
-                                                profile_form.antenna_gain_b.data, profile_form.latitude_b.data,
-                                                profile_form.longitude_b.data, profile_form.height_b.data,
+                                                profile_form.antenna_a_gain.data, profile_form.latitude_a.data,
+                                                profile_form.longitude_a.data, profile_form.antenna_a_height.data,
+                                                profile_form.antenna_b_gain.data, profile_form.latitude_b.data,
+                                                profile_form.longitude_b.data, profile_form.antenna_b_height.data,
                                                 current_app.config['CACHE_DIR_PROFILE'])
     return jsonify(job_url=url_for("mlc.profile_check", job_id=rq_job.id),
                    job_status=rq_job.get_status(),

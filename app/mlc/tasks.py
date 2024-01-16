@@ -6,36 +6,36 @@ from lib import GeoPoint, RadioProfile
 
 
 def radio_profile_check(tx_power: int, frequency: int, receiver_sensitivity: float,
-                        antenna_gain_a: float, latitude_a: float, longitude_a: float, height_a: int,
-                        antenna_gain_b: float, latitude_b: float, longitude_b: float, height_b: int) -> dict:
+                        antenna_a_gain: float, latitude_a: float, longitude_a: float, antenna_a_height: int,
+                        antenna_b_gain: float, latitude_b: float, longitude_b: float, antenna_b_height: int) -> dict:
     p_a = GeoPoint(latitude_a, longitude_a)
     p_b = GeoPoint(latitude_b, longitude_b)
-    radio_profile = RadioProfile(p_a, height_a, p_b, height_b, frequency)
+    radio_profile = RadioProfile(p_a, antenna_a_height, p_b, antenna_b_height, frequency)
     radio_profile.set_radio_parameters(tx_power=tx_power, receiver_sensitivity=receiver_sensitivity,
-                                       antenna_gain_a=float(antenna_gain_a), antenna_gain_b=float(antenna_gain_b))
+                                       antenna_a_gain=float(antenna_a_gain), antenna_b_gain=float(antenna_b_gain))
     return {'visibility_in_0_6_fresnel_zone': radio_profile.visibility_in_0_6_fresnel_zone,
             }
 
 
 def radio_profile_graph(tx_power: int, frequency: int, receiver_sensitivity: float,
-                        antenna_gain_a: float, latitude_a: float, longitude_a: float, height_a: int,
-                        antenna_gain_b: float, latitude_b: float, longitude_b: float, height_b: int, cache_dir: str,
+                        antenna_a_gain: float, latitude_a: float, longitude_a: float, antenna_a_height: int,
+                        antenna_b_gain: float, latitude_b: float, longitude_b: float, antenna_b_height: int, cache_dir: str,
                         name_a="", name_b="") -> dict:
-    filename = "{0}_{1}_{2}_{3}_{4}_{5}_{6}_{7}_{8}.png".format(latitude_a, longitude_a, height_a, antenna_gain_a,
-                                                                latitude_b, longitude_b, height_b, antenna_gain_b, frequency)
+    filename = "{0}_{1}_{2}_{3}_{4}_{5}_{6}_{7}_{8}.png".format(latitude_a, longitude_a, antenna_a_height, antenna_a_gain,
+                                                                latitude_b, longitude_b, antenna_b_height, antenna_b_gain, frequency)
     p_a = GeoPoint(latitude_a, longitude_a, name=name_a)
     p_b = GeoPoint(latitude_b, longitude_b, name=name_b)
 
-    radio_profile = RadioProfile(p_a, height_a, p_b, height_b, frequency)
+    radio_profile = RadioProfile(p_a, antenna_a_height, p_b, antenna_b_height, frequency)
     radio_profile.set_radio_parameters(tx_power=tx_power, receiver_sensitivity=receiver_sensitivity,
-                                       antenna_gain_a=float(antenna_gain_a), antenna_gain_b=float(antenna_gain_b))
+                                       antenna_a_gain=float(antenna_a_gain), antenna_b_gain=float(antenna_b_gain))
     profile_chart = radio_profile.get_chart_data()
     plt.rcParams["figure.figsize"] = (14, 9)
     fig = plt.figure()
     ax = fig.add_subplot()
 
     ax.grid(True)
-    ax.annotate(f'Antenna gain {radio_profile.antenna_gain_a:.1f} dBm\nHeight {height_a} m',
+    ax.annotate(f'Antenna gain {radio_profile.antenna_a_gain:.1f} dBm\nHeight {antenna_a_height} m',
                 xy=(0, profile_chart['los_height'][0]), xycoords='data',
                 xytext=(0.1, 0.5), textcoords='axes fraction',
                 horizontalalignment='left',
@@ -44,7 +44,7 @@ def radio_profile_graph(tx_power: int, frequency: int, receiver_sensitivity: flo
                                 connectionstyle="arc3,rad=0.3"),
                 bbox=dict(boxstyle="round", fc="1", alpha=0.5))
 
-    ax.annotate(f'Antenna gain {radio_profile.antenna_gain_b:.1f} dBm\nHeight {height_b} m',
+    ax.annotate(f'Antenna gain {radio_profile.antenna_b_gain:.1f} dBm\nHeight {antenna_b_height} m',
                 xy=(profile_chart['distance'][-1], profile_chart['los_height'][-1]), xycoords='data',
                 xytext=(0.9, 0.5), textcoords='axes fraction',
                 horizontalalignment='right',
@@ -93,8 +93,8 @@ def radio_profile_graph(tx_power: int, frequency: int, receiver_sensitivity: flo
             'az_b_a': p_b.azimuth(p_a),
             'a_elevation': p_a.elevation,
             'b_elevation': p_b.elevation,
-            'a_height': height_a,
-            'b_height': height_b,
+            'a_height': antenna_a_height,
+            'b_height': antenna_b_height,
             'line_of_sight': radio_profile.line_of_sight,
             'visibility_in_0_6_fresnel_zone': radio_profile.visibility_in_0_6_fresnel_zone,
             'expected_signal_strength': radio_profile.expected_signal_strength,

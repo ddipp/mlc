@@ -13,5 +13,4 @@ data/cache/*
 !data/cache/.gitkeep
 app/templates/counters.html
 tmp/
-example.py
-test.py
+pop.py

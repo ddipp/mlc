@@ -19,11 +19,11 @@ class RadioProfile:
         # List for relief
         self.relief = list()
 
-    def set_radio_parameters(self, tx_power, receiver_sensitivity, antenna_gain_a, antenna_gain_b):
+    def set_radio_parameters(self, tx_power, receiver_sensitivity, antenna_a_gain, antenna_b_gain):
         self.tx_power = tx_power
         self.receiver_sensitivity = receiver_sensitivity
-        self.antenna_gain_a = antenna_gain_a
-        self.antenna_gain_b = antenna_gain_b
+        self.antenna_a_gain = antenna_a_gain
+        self.antenna_b_gain = antenna_b_gain
 
     def arc_height(self, distance: int) -> float:
         """ The height of the planet's arc at a given distance (in meters) from the start of the path
@@ -130,7 +130,7 @@ class RadioProfile:
         if self.line_of_sight is False or self.visibility_in_0_6_fresnel_zone is False:
             ess = None
         else:
-            ess = self.tx_power + self.antenna_gain_a + self.antenna_gain_b - self.free_space_loss
+            ess = self.tx_power + self.antenna_a_gain + self.antenna_b_gain - self.free_space_loss
             ess = round(ess, 1)
         return ess
 

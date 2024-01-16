@@ -60,6 +60,9 @@
           <li class="pure-menu-item {% if request.path == url_for('mlc.sites') %}pure-menu-selected{% endif %}">
             <a href="{{url_for('mlc.sites')}}" class="pure-menu-link">My sites</a>
           </li>
+          <li class="pure-menu-item {% if request.path == url_for('mlc.links') %}pure-menu-selected{% endif %}">
+            <a href="{{url_for('mlc.links')}}" class="pure-menu-link">My links</a>
+          </li>
           <li class="pure-menu-item {% if request.path == url_for('auth.logout') %}pure-menu-selected{% endif %}">
             <a href="{{url_for('auth.logout')}}" class="pure-menu-link">Logout</a>
           </li>

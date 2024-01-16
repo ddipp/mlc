@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content">
+  <table class="pure-table pure-table-bordered">
+    <thead>
+      <tr>
+        <th colspan=2>Point A</th>
+        <th colspan=2>Point B</th>
+        <th rowspan=2>Freq (GHz)</th>
+        <th rowspan=2>Tx (dBm)</th>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <th>Antenna</br><small>height, gain</small></th>
+        <th>Name</th>
+        <th>Antenna</br><small>height, gain</small></th>
+      </tr>
+    </thead>
+    <tbody>
+    {%- for link in links %}
+      <tr>
+        <td>{{ link.site_a.name }}</br><small>{{ link.site_a.latitude }} {{ link.site_a.longitude }}</small></td>
+        <td>{{ link.antenna_a_height }}</br>{{ link.antenna_a_gain }}</td>
+        <td>{{ link.site_b.name }}</br><small>{{ link.site_b.latitude }} {{ link.site_b.longitude }}</small></td>
+        <td>{{ link.antenna_b_height }}</br>{{ link.antenna_b_gain }}</td>
+        <td>{{ link.frequency }}</td>
+        <td>{{ link.tx_power }}</td>
+      </tr>
+      {%- endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
