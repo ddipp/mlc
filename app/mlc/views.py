@@ -36,8 +36,8 @@ def links_edit(id):
         else:
             link = LinkModel(user=current_user, site_a_id=form.site_a.data.id, site_b_id=form.site_b.data.id,
                              tx_power=form.tx_power.data, frequency=form.frequency.data,
-                             antenna_a_gain=float(form.antenna_a_gain.data), antenna_a_height=form.antenna_a_height.data,
-                             antenna_b_gain=float(form.antenna_b_gain.data), antenna_b_height=form.antenna_b_height.data,)
+                             antenna_a_gain=form.antenna_a_gain.data, antenna_a_height=form.antenna_a_height.data,
+                             antenna_b_gain=form.antenna_b_gain.data, antenna_b_height=form.antenna_b_height.data,)
             db.session.add(link)
 
         db.session.commit()

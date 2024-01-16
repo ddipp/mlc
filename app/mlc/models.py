@@ -28,7 +28,7 @@ class LinkModel(db.Model):
     antenna_b_height = db.Column(db.Integer())
     frequency = db.Column(db.Integer())
     tx_power = db.Column(db.Integer())
-    antenna_a_gain = db.Column(db.Integer())
-    antenna_b_gain = db.Column(db.Integer())
+    antenna_a_gain = db.Column(db.Numeric(3, 1))
+    antenna_b_gain = db.Column(db.Numeric(3, 1))
 
     dt = db.Column(db.DateTime, default=datetime.utcnow)
