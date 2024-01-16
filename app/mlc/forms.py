@@ -1,5 +1,24 @@
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, DecimalField, HiddenField, StringField, validators
+from flask_login import current_user
+from wtforms_sqlalchemy.fields import QuerySelectField
+
+from .models import SiteModel
+
+
+def sites_res():
+    return SiteModel.query.filter(SiteModel.user == current_user).order_by(SiteModel.dt.desc()).all()
+
+
+class LinkForm(FlaskForm):
+    tx_power = IntegerField("Tx power (dBm)", [validators.InputRequired(), validators.NumberRange(min=-10, max=50)])
+    frequency = IntegerField("Frequency (GHz)", [validators.InputRequired(), validators.NumberRange(min=3, max=90)])
+    antenna_a_gain = DecimalField("Antenna gain (dB)", [validators.InputRequired(), validators.NumberRange(min=0, max=90)], places=2)
+    antenna_a_height = IntegerField("Height (m)", [validators.InputRequired(), validators.NumberRange(min=0, max=300)])
+    antenna_b_gain = DecimalField("Antenna gain (dB)", [validators.InputRequired(), validators.NumberRange(min=0, max=90)], places=8)
+    antenna_b_height = IntegerField("Height (m)", [validators.InputRequired(), validators.NumberRange(min=0, max=300)])
+    site_a = QuerySelectField(query_factory=sites_res, get_label='name')
+    site_b = QuerySelectField(query_factory=sites_res, get_label='name')
 
 
 class SiteForm(FlaskForm):

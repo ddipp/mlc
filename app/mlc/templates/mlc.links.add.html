@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content">
+  <form class="pure-form pure-form-stacked" method="POST">
+    {{ form.hidden_tag() }}
+    <fieldset>
+      <legend>Radio parameters</legend>
+      <div class="pure-g">
+        <div class="pure-u-1-2 pure-u-md-1-3">
+          {{ form.frequency.label }} {{ form.frequency(size=4) }}
+        </div>
+        <div class="pure-u-1-2 pure-u-md-1-3">
+          {{ form.tx_power.label }} {{ form.tx_power(size=4) }}
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Point A</legend>
+      <div class="pure-g">
+        <div class="pure-u-1-2 pure-u-md-1-4">
+          {{ form.site_a.label }} {{ form.site_a }} 
+        </div>
+        <div class="pure-u-1-2 pure-u-md-1-4">
+          {{ form.antenna_a_height.label }} {{ form.antenna_a_height(size=4) }}
+        </div>
+        <div class="pure-u-1-2 pure-u-md-1-4">
+          {{ form.antenna_a_gain.label }} {{ form.antenna_a_gain(size=5) }}
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Point B</legend>
+      <div class="pure-g">
+        <div class="pure-u-1-2 pure-u-md-1-4">
+          {{ form.site_b.label }} {{ form.site_b }} 
+        </div>
+        <div class="pure-u-1-2 pure-u-md-1-4">
+          {{ form.antenna_b_height.label }} {{ form.antenna_b_height(size=4) }}
+        </div>
+        <div class="pure-u-1-2 pure-u-md-1-4">
+          {{ form.antenna_b_gain.label }} {{ form.antenna_b_gain(size=5) }}
+        </div>
+      </div>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="pure-u-1-1">
+              <span class="alert-message">
+                {{ message }}
+              </span>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      {% for field, errors in form.errors.items() %}
+    {{ ', '.join(errors) }}
+    {% endfor %}
+    </fieldset>
+    <input type="submit" value="Go" class="pure-button">
+  </form>
+</div>
+{% endblock %}

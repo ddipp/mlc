@@ -4,27 +4,39 @@
   <table class="pure-table pure-table-bordered">
     <thead>
       <tr>
-        <th colspan=2>Point A</th>
-        <th colspan=2>Point B</th>
-        <th rowspan=2>Freq (GHz)</th>
-        <th rowspan=2>Tx (dBm)</th>
+        <th colspan=3>Point A</th>
+        <th colspan=3>Point B</th>
+        <th rowspan=3>Freq (GHz)</th>
+        <th rowspan=3>Tx (dBm)</th>
+        <th rowspan=3><a href="{{url_for('mlc.links_edit')}}"><i class="demo-icon icon-plus-squared-alt"></i></a></th>
       </tr>
       <tr>
-        <th>Name</th>
-        <th>Antenna</br><small>height, gain</small></th>
-        <th>Name</th>
-        <th>Antenna</br><small>height, gain</small></th>
+        <th rowspan=2>Name</th>
+        <th colspan=2>Antenna</th>
+        <th rowspan=2>Name</th>
+        <th colspan=2>Antenna</th>
+      </tr>
+      <tr>
+        
+        <th>Height</th>
+        <th>Gain</th>
+        
+        <th>Height</th>
+        <th>Gain</th>
       </tr>
     </thead>
     <tbody>
     {%- for link in links %}
       <tr>
-        <td>{{ link.site_a.name }}</br><small>{{ link.site_a.latitude }} {{ link.site_a.longitude }}</small></td>
-        <td>{{ link.antenna_a_height }}</br>{{ link.antenna_a_gain }}</td>
-        <td>{{ link.site_b.name }}</br><small>{{ link.site_b.latitude }} {{ link.site_b.longitude }}</small></td>
-        <td>{{ link.antenna_b_height }}</br>{{ link.antenna_b_gain }}</td>
+        <td>{{ link.site_a.name }}</td>
+        <td>{{ link.antenna_a_height }}</td>
+        <td>{{ link.antenna_a_gain }}</td>
+        <td>{{ link.site_b.name }}</td>
+        <td>{{ link.antenna_b_height }}</td>
+        <td>{{ link.antenna_b_gain }}</td>
         <td>{{ link.frequency }}</td>
         <td>{{ link.tx_power }}</td>
+        <td><a href="{{url_for('mlc.links_edit', id=link.id)}}"><i class="demo-icon icon-edit"></i></a></td>
       </tr>
       {%- endfor %}
     </tbody>

@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 
 from app import db
 
-from .forms import DistanceForm, NextPointForm, ProfileForm, SiteForm
+from .forms import DistanceForm, NextPointForm, ProfileForm, SiteForm, LinkForm
 from .models import SiteModel, LinkModel
 
 mlc = Blueprint('mlc', __name__, template_folder='templates')
@@ -14,6 +14,33 @@ mlc = Blueprint('mlc', __name__, template_folder='templates')
 ############
 # My links #
 ############
+
+@mlc.route('links/add/', methods=['GET', 'POST'], defaults={'id': None})
+@mlc.route('links/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def links_edit(id):
+    if id is not None:
+        link = LinkModel.query.filter(LinkModel.id == id).filter(LinkModel.user == current_user).first()
+        form = LinkForm(obj=link)
+        title = "Edit link"
+    else:
+        link = None
+        form = LinkForm()
+        title = "New link"
+
+    print(form.validate_on_submit())
+    print(form.errors)
+    if form.validate_on_submit():
+        if id is not None:
+            form.populate_obj(link)
+        else:
+            link = LinkModel(user=current_user)
+            db.session.add(link)
+
+        db.session.commit()
+
+        return redirect(url_for('mlc.links'))
+    return render_template('mlc.links.add.html', title=title, form=form)
 
 
 @mlc.route('links', methods=['GET'])
