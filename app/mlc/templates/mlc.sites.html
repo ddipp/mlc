@@ -7,6 +7,7 @@
         <th>Name</th>
         <th>Latitude</th>
         <th>Longitude</th>
+        <th>Elevation</th>
         <th><a href="{{url_for('mlc.sites_edit')}}"><i class="demo-icon icon-plus-squared-alt"></i></a></th>
       </tr>
     </thead>
@@ -16,6 +17,7 @@
         <td>{{ site.name }}</td>
         <td>{{ site.latitude }}</td>
         <td>{{ site.longitude }}</td>
+        <td>{{ site.elevation }}</td>
         <td><a href="{{url_for('mlc.sites_edit', id=site.id)}}"><i class="demo-icon icon-edit"></i></a></td>
       </tr>
       {%- endfor %}

@@ -28,10 +28,10 @@ def test_connection():
         db.session.add(user2)
         db.session.commit()
 
-        site1 = SiteModel(user=user2, name="site1user2", height=11, latitude=56.1234561, longitude=66.1234561)
-        site2 = SiteModel(user=user2, name="site2user2", height=12, latitude=56.1234562, longitude=66.1234562)
-        site3 = SiteModel(user=user1, name="site1user1", height=13, latitude=56.1234563, longitude=66.1234563)
-        site4 = SiteModel(user=user1, name="site2user1", height=14, latitude=56.1234564, longitude=66.1234564)
+        site1 = SiteModel(user=user2, name="site1user2", latitude=56.1234561, longitude=66.1234561)
+        site2 = SiteModel(user=user2, name="site2user2", latitude=56.1234562, longitude=66.1234562)
+        site3 = SiteModel(user=user1, name="site1user1", latitude=56.1234563, longitude=66.1234563)
+        site4 = SiteModel(user=user1, name="site2user1", latitude=56.1234564, longitude=66.1234564)
         db.session.add_all([site1, site2, site3, site4])
         db.session.commit()
 

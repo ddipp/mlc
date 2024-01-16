@@ -59,7 +59,7 @@ class RadioProfile:
         for i in range(int(self.length // incremental)):
             distance += incremental
             nextpoint = self.startpoint.nextpoint(self.startpoint.azimuth(self.stoppoint), distance)
-            elevation = srtm.get_elevation_point(nextpoint.latitude, nextpoint.longitude)
+            elevation = nextpoint.elevation
 
             self.relief.append((distance, elevation))
 

@@ -1,6 +1,7 @@
 .content-img {
   max-width: 98%;
 }
+
 .status-message {
   color: #999;
   font-size: 70%;
@@ -8,4 +9,7 @@
 .alert-message {
   color: #fff;
   background: #df2d4f;
+}
+body {
+  color: #222;
 }

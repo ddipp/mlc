@@ -34,7 +34,10 @@ def sites_edit(id):
         else:
             site = SiteModel(user=current_user, name=form.name.data, latitude=form.latitude.data, longitude=form.longitude.data)
             db.session.add(site)
+
         db.session.commit()
+        current_app.task_queue.enqueue('app.mlc.tasks.get_elevation_to_db', site.id)
+
         return redirect(url_for('mlc.sites'))
     return render_template('mlc.sites.add.html', title=title, form=form)
 

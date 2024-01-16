@@ -1,15 +1,30 @@
 import matplotlib.pyplot as plt
 
+from app import app, db
+from app.mlc.models import SiteModel
 from lib import GeoPoint, RadioProfile
+
+
+def radio_profile_check(tx_power: int, frequency: int, receiver_sensitivity: float,
+                        antenna_gain_a: float, latitude_a: float, longitude_a: float, height_a: int,
+                        antenna_gain_b: float, latitude_b: float, longitude_b: float, height_b: int) -> dict:
+    p_a = GeoPoint(latitude_a, longitude_a)
+    p_b = GeoPoint(latitude_b, longitude_b)
+    radio_profile = RadioProfile(p_a, height_a, p_b, height_b, frequency)
+    radio_profile.set_radio_parameters(tx_power=tx_power, receiver_sensitivity=receiver_sensitivity,
+                                       antenna_gain_a=float(antenna_gain_a), antenna_gain_b=float(antenna_gain_b))
+    return {'visibility_in_0_6_fresnel_zone': radio_profile.visibility_in_0_6_fresnel_zone,
+            }
 
 
 def radio_profile_graph(tx_power: int, frequency: int, receiver_sensitivity: float,
                         antenna_gain_a: float, latitude_a: float, longitude_a: float, height_a: int,
-                        antenna_gain_b: float, latitude_b: float, longitude_b: float, height_b: int, cache_dir: str) -> dict:
+                        antenna_gain_b: float, latitude_b: float, longitude_b: float, height_b: int, cache_dir: str,
+                        name_a="", name_b="") -> dict:
     filename = "{0}_{1}_{2}_{3}_{4}_{5}_{6}_{7}_{8}.png".format(latitude_a, longitude_a, height_a, antenna_gain_a,
                                                                 latitude_b, longitude_b, height_b, antenna_gain_b, frequency)
-    p_a = GeoPoint(latitude_a, longitude_a)
-    p_b = GeoPoint(latitude_b, longitude_b)
+    p_a = GeoPoint(latitude_a, longitude_a, name=name_a)
+    p_b = GeoPoint(latitude_b, longitude_b, name=name_b)
 
     radio_profile = RadioProfile(p_a, height_a, p_b, height_b, frequency)
     radio_profile.set_radio_parameters(tx_power=tx_power, receiver_sensitivity=receiver_sensitivity,
@@ -117,3 +132,16 @@ def nextpoint(latitude_a: float, longitude_a: float, distance: float, bearing: f
             'a_elevation': p_a.elevation,
             'b_elevation': p_b.elevation,
             }
+
+
+def get_elevation_to_db(point_id: int) -> bool:
+    with app.app_context():
+        site = SiteModel.query.get(point_id)
+        p_a = GeoPoint(site.latitude, site.longitude)
+        if p_a.elevation is None:
+            site.elevation = 0
+        else:
+            site.elevation = p_a.elevation
+        db.session.add(site)
+        db.session.commit()
+    return {'elevation': p_a.elevation}
