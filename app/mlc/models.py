@@ -10,8 +10,8 @@ class SiteModel(db.Model):
     user = db.relationship(UserModel, backref='site', cascade="all")  # back Reference to user
     name = db.Column(db.String(100))
     elevation = db.Column(db.Integer())
-    latitude = db.Column(db.Numeric(10, 7))
-    longitude = db.Column(db.Numeric(10, 7))
+    latitude = db.Column(db.Numeric(9, 6))
+    longitude = db.Column(db.Numeric(9, 6))
     dt = db.Column(db.DateTime, default=datetime.utcnow)
 
 
@@ -32,3 +32,5 @@ class LinkModel(db.Model):
     antenna_b_gain = db.Column(db.Numeric(3, 1))
 
     dt = db.Column(db.DateTime, default=datetime.utcnow)
+
+    status = db.Column(db.Enum('OK', 'no line of sight', 'no line of sight in the fresnel zone'))
