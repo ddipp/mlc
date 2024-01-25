@@ -32,5 +32,3 @@ class LinkModel(db.Model):
     antenna_b_gain = db.Column(db.Numeric(3, 1))
 
     dt = db.Column(db.DateTime, default=datetime.utcnow)
-
-    status = db.Column(db.Enum('OK', 'no line of sight', 'no line of sight in the fresnel zone'))
