@@ -4,6 +4,9 @@ from app import app, db
 from app.mlc.models import SiteModel
 from lib import GeoPoint, RadioProfile
 
+# FIXME: убрать float из координат
+# TODO: remove float from coordinates
+
 
 def radio_profile_check(tx_power: int, frequency: int, receiver_sensitivity: float,
                         antenna_a_gain: float, latitude_a: float, longitude_a: float, antenna_a_height: int,
