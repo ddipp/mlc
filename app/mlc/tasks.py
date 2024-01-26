@@ -4,9 +4,6 @@ from app import app, db
 from app.mlc.models import SiteModel
 from lib import GeoPoint, RadioProfile
 
-# FIXME: убрать float из координат
-# TODO: remove float from coordinates
-
 
 def radio_profile_check(tx_power: int, frequency: int, receiver_sensitivity: float,
                         antenna_a_gain: float, latitude_a: float, longitude_a: float, antenna_a_height: int,
@@ -15,7 +12,7 @@ def radio_profile_check(tx_power: int, frequency: int, receiver_sensitivity: flo
     p_b = GeoPoint(latitude_b, longitude_b)
     radio_profile = RadioProfile(p_a, antenna_a_height, p_b, antenna_b_height, frequency)
     radio_profile.set_radio_parameters(tx_power=tx_power, receiver_sensitivity=receiver_sensitivity,
-                                       antenna_a_gain=float(antenna_a_gain), antenna_b_gain=float(antenna_b_gain))
+                                       antenna_a_gain=antenna_a_gain, antenna_b_gain=antenna_b_gain)
     return {'visibility_in_0_6_fresnel_zone': radio_profile.visibility_in_0_6_fresnel_zone,
             }
 
@@ -31,7 +28,7 @@ def radio_profile_graph(tx_power: int, frequency: int, receiver_sensitivity: flo
 
     radio_profile = RadioProfile(p_a, antenna_a_height, p_b, antenna_b_height, frequency)
     radio_profile.set_radio_parameters(tx_power=tx_power, receiver_sensitivity=receiver_sensitivity,
-                                       antenna_a_gain=float(antenna_a_gain), antenna_b_gain=float(antenna_b_gain))
+                                       antenna_a_gain=antenna_a_gain, antenna_b_gain=antenna_b_gain)
     profile_chart = radio_profile.get_chart_data()
     plt.rcParams["figure.figsize"] = (14, 9)
     fig = plt.figure()
