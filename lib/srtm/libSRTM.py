@@ -69,10 +69,9 @@ def read_elevation(file, latitude: float, longitude: float) -> int:
     pos = (i * 1201) + j
     file.seek(pos * 2)
     val = int.from_bytes(file.read(2), byteorder="big", signed=True)
-    if not val == -32768:
-        return val
-    else:
+    if val == -32768:
         return None
+    return val
 
 
 opened_srtm_file = None
@@ -95,6 +94,10 @@ def get_elevation_point(latitude: float, longitude: float) -> int:
         opened_srtm_file = srtm_file
 
     return read_elevation(f, latitude, longitude)
+
+
+def get_coordinates_from_point():
+    pass
 
 # def get_elevation_point(latitude: float, longitude: float) -> int:
 #     SAMPLES = 1201

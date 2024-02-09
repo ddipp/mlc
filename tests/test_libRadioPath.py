@@ -93,7 +93,7 @@ def test_radio_path4():
     p2 = GeoPoint(1.870678, 30.876938, name='Point2')
     radiopath1 = RadioProfile(startpoint=p1, startheight=20, stoppoint=p2, stopheight=20, frequency=17)
     radiopath1.set_radio_parameters(tx_power=18, receiver_sensitivity=-65, antenna_a_gain=38.1, antenna_b_gain=38.1)
-    assert radiopath1.get_chart_data() == {
+    assert radiopath1.get_chart_data == {
         'distance': [0, 10, 90, 91.44911202645781],
         'relief': [674, 635, 635, 635],
         'relief_arc': [674.0, 635.0000639215851, 635.0000102356869, 635.0],

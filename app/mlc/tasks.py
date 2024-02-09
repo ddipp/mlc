@@ -29,7 +29,7 @@ def radio_profile_graph(tx_power: int, frequency: int, receiver_sensitivity: flo
     radio_profile = RadioProfile(p_a, antenna_a_height, p_b, antenna_b_height, frequency)
     radio_profile.set_radio_parameters(tx_power=tx_power, receiver_sensitivity=receiver_sensitivity,
                                        antenna_a_gain=antenna_a_gain, antenna_b_gain=antenna_b_gain)
-    profile_chart = radio_profile.get_chart_data()
+    profile_chart = radio_profile.get_chart_data
     plt.rcParams["figure.figsize"] = (14, 9)
     fig = plt.figure()
     ax = fig.add_subplot()

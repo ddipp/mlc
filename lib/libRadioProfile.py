@@ -130,10 +130,11 @@ class RadioProfile:
         if self.line_of_sight is False or self.visibility_in_0_6_fresnel_zone is False:
             ess = None
         else:
-            ess = self.tx_power + self.antenna_a_gain + self.antenna_b_gain - self.free_space_loss
+            ess = self.tx_power + float(self.antenna_a_gain) + float(self.antenna_b_gain) - self.free_space_loss
             ess = round(ess, 1)
         return ess
 
+    @property
     def get_chart_data(self) -> dict:
         """ Chart data.
             Returns a list of data points:
