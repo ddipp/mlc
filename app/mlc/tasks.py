@@ -14,6 +14,7 @@ def radio_profile_check(tx_power: int, frequency: int, receiver_sensitivity: flo
     radio_profile.set_radio_parameters(tx_power=tx_power, receiver_sensitivity=receiver_sensitivity,
                                        antenna_a_gain=antenna_a_gain, antenna_b_gain=antenna_b_gain)
     return {'visibility_in_0_6_fresnel_zone': radio_profile.visibility_in_0_6_fresnel_zone,
+            'line_of_sight': radio_profile.line_of_sight
             }
 
 

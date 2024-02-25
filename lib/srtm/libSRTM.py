@@ -95,10 +95,6 @@ def get_elevation_point(latitude: float, longitude: float) -> int:
 
     return read_elevation(f, latitude, longitude)
 
-
-def get_coordinates_from_point():
-    pass
-
 # def get_elevation_point(latitude: float, longitude: float) -> int:
 #     SAMPLES = 1201
 #     srtm_file = hgt_file(latitude, longitude)
